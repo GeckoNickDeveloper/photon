@@ -2,59 +2,90 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photon/pages/scan_qr_page.dart';
+import 'package:photon/pages/upload_page.dart';
 import 'package:photon/services/permission_service.dart';
 
 class HomePage extends ConsumerWidget {
-  final String title;
-  final PermissionService _permissionService = PermissionService();
-
-  HomePage({super.key, required this.title});
+  const HomePage({super.key});
 
   // Build method
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final scanQrButton = ElevatedButton(
+      onPressed: () => scanQr(context, ref),
+      child: const Row(
+        children: [
+          Text('SCAN QR CODE'),
+          Spacer(),
+          Icon(Icons.qr_code_scanner),
+        ]
+      )
+    );
+
+    final startUploadButton = ElevatedButton(
+      onPressed: () => scanQr(context, ref),
+      child: const Row(
+        children: [
+          Text('SCAN QR CODE'),
+          Spacer(),
+          Icon(Icons.qr_code_scanner),
+        ]
+      )
+    );
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(title),
+        title: const Text('Photon'),
       ),
-      body: Center(
+      body: const Center(
         child: Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_permissionService.camera == PermissionStatus.granted) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ScanQRPage(),
-                      ),
-                    );
-                  }
-                },
-                child: const Row(
-                  children: [
-                    Text('SCAN QR CODE'),
-                    Icon(Icons.qr_code_scanner),
-                  ]
-                )
+              Text(
+                'Placeholder Text',
               ),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => askPermission(),
-        child: const Icon(Icons.perm_camera_mic),
-      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: scanQrButton,
     );
   }
 
-  void askPermission() async {
-    await _permissionService.askCameraPermission();
+
+
+  Future<void> scanQr(BuildContext context, WidgetRef ref) async {
+    final permissionService = PermissionService();
+    
+    await permissionService.askCameraPermission();
+
+    if (permissionService.camera == PermissionStatus.granted) {
+      // ignore: use_build_context_synchronously
+      final String? content = await Navigator.of(context).push<String?>(
+        MaterialPageRoute(
+          builder: (context) => ScanQRPage(),
+        ),
+      );
+
+      print('================================================== ${content ?? "NULL"}');
+
+      // Check result and change page
+      //ref.read(qrStringContent.notifier).state = content;
+
+      if (content != null) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => UploadPage(serverInfos: content),
+          ),
+        );
+      }
+      // ignore: use_build_context_synchronously
+      } else {
+      openAppSettings();
+    }
   }
 }
