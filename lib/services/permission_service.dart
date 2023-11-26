@@ -18,7 +18,7 @@ class PermissionService {
   }
 
   // Methods
-  Future<void> _update() async {
+  Future<void> update() async {
     camera = await Permission.camera.status;
   }
 
@@ -28,8 +28,7 @@ class PermissionService {
 
     if (status.isDenied) {
       status = await Permission.camera.request();
+      camera = status;
     }
-
-    await _update();
   }
 }
