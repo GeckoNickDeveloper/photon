@@ -1,33 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class ScanQRPage extends StatefulWidget {
-  const ScanQRPage({super.key});
 
-  @override
-  State<ScanQRPage> createState() => _ScanQRPageState();
-}
 
-class _ScanQRPageState extends State<ScanQRPage> {
+class ScanQRPage extends StatelessWidget {
+  ScanQRPage({super.key});
+
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  Barcode? result;
-  QRViewController? controller;
-
-  // Must be overriden to get Hot Reload
-  @override
-  void reassemble() {
-    super.reassemble();
-
-    controller!.pauseCamera();
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,39 +14,27 @@ class _ScanQRPageState extends State<ScanQRPage> {
       body: Column(
         children: <Widget>[
           Expanded(
-            flex: 1,
             child: QRView(
               key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
+              onQRViewCreated: (controller) => _onQRViewCreated(controller, context),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: (result != null)
-                  ? Text(
-                      'Data: ${result!.code}')
-                  : const Text('Scan a code'),
-            ),
-          )
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
         child: const Text('Cancel'),
         onPressed: () {
           Navigator.pop(context, null);
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {   
-      setState(() {
-        result = scanData;
-      });
+  void _onQRViewCreated(QRViewController controller, BuildContext context) {
+    controller.scannedDataStream.listen((scanData) {
+      controller.dispose();
+      Navigator.pop(context, scanData.code);
     });
   }
 }
