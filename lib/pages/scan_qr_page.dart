@@ -23,6 +23,7 @@ class ScanQRPage extends StatelessWidget {
               builder: (context, ref, child) {
                 return QRView(
                   key: qrKey,
+                  overlay: QrScannerOverlayShape(),
                   onQRViewCreated: (controller) => _onQRViewCreated(controller, context, ref),
                 );
               },
@@ -49,6 +50,9 @@ class ScanQRPage extends StatelessWidget {
 
       if (psm == null) {
         // Snackbar invalid QR
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Invalid QR. Please retry.'))
+        );
       }
       
       controller.dispose();
@@ -57,17 +61,11 @@ class ScanQRPage extends StatelessWidget {
     });
   }
 
-  PhotonServerModel? parser(String jsonString) {
+  PhotonServerModel? parser(String json) {
     PhotonServerModel? psm;
 
     try {
-      final json = jsonDecode(jsonString);
-    
-      final token = json['token'] as String;
-      final uri = Uri.http(json['uri']);
-
-
-      psm = PhotonServerModel(token: token, uri: uri);
+      psm = PhotonServerModel.fromJSON(jsonString: json);
     } on FormatException {
       psm = null;
     }

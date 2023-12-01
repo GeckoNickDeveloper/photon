@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:photon/models/photon_server_model.dart';
-import 'package:photon/pages/scan_qr_page.dart';
 import 'package:photon/providers/providers.dart';
 import 'package:photon/widgets/authorized_home_page.dart';
 import 'package:photon/widgets/unauthorized_home_page.dart';
