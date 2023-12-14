@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/photon_server_model.dart';
@@ -45,7 +43,7 @@ class ScanQRPage extends StatelessWidget {
     controller.scannedDataStream.listen((scanData) {
       final psm = parser(scanData.code!);
 
-      // Add Server Informations
+      // Update Server Informations
       ref.read(serverInformationsProvider.notifier).state = psm;
 
       if (psm == null) {
@@ -65,7 +63,7 @@ class ScanQRPage extends StatelessWidget {
     PhotonServerModel? psm;
 
     try {
-      psm = PhotonServerModel.fromJSON(jsonString: json);
+      psm = PhotonServerModel.fromJson(jsonString: json);
     } on FormatException {
       psm = null;
     }
