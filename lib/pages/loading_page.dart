@@ -31,7 +31,7 @@ class LoadingPage extends ConsumerWidget {
     
     // Update State
     ref.read(deviceUUID.notifier).state = uuid;
-    final _ = ref.refresh(imageListProvider);
+    final _ = ref.refresh(imageListerProvider);
 
     if (!context.mounted) return;
     Navigator.pushAndRemoveUntil(

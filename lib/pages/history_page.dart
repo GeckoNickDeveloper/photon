@@ -23,7 +23,7 @@ class HistoryPage extends StatelessWidget {
                 'Placeholder Text',
               ),
               Text(serverInfos),
-              Consumer(
+              /*Consumer(
                 builder:(context, ref, child) {
                   return ListView.builder(
                     itemCount: ref.watch(imageListNotifier).length,
@@ -36,7 +36,7 @@ class HistoryPage extends StatelessWidget {
                     },
                   );
                 },
-              ),
+              ),*/
             ],
           ),
         ),

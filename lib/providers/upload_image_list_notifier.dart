@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/models/image_model.dart';
+import 'package:photon/models/photon_image.dart';
 import 'package:photon/models/upload_status.dart';
 import 'package:photon/services/photon_api_service.dart';
 
-class UploadImageListNotifier extends StateNotifier<List<ImageModel>> {
+class UploadImageListNotifier extends StateNotifier<List<PhotonImage>> {
   bool uploading;
   
   UploadImageListNotifier(super.state) : uploading = false;
@@ -12,7 +12,11 @@ class UploadImageListNotifier extends StateNotifier<List<ImageModel>> {
     return state.length;
   }
 
-  add(ImageModel item) {
+  from(List<PhotonImage> newList) {
+    state = [...newList];
+  }
+
+  add(PhotonImage item) {
     final tmp = [...state];
     tmp.add(item);
     state = [...tmp];
@@ -26,7 +30,7 @@ class UploadImageListNotifier extends StateNotifier<List<ImageModel>> {
 
   status(int index, UploadStatus upState) {
     final tmp = [...state];
-    tmp[index] = ImageModel(name: tmp[index].name, path: tmp[index].path, file: tmp[index].file, state: tmp[index].state);//upState;
+    tmp[index] = PhotonImage(name: tmp[index].name, path: tmp[index].path, file: tmp[index].file, status: tmp[index].status);//upState;
     state = [...tmp];
   }
 
