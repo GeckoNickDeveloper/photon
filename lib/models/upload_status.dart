@@ -1,4 +1,4 @@
-enum UploadStateModel {
+enum UploadStatus {
   pending,
   failed,
   success

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/pages/home_page.dart';
+import 'package:photon/pages/test_page.dart';
 import 'package:photon/providers/providers.dart';
 import 'package:photon/services/local_storage_service.dart';
 import 'package:photon/services/permission_service.dart';
@@ -30,12 +31,14 @@ class LoadingPage extends ConsumerWidget {
     
     // Update State
     ref.read(deviceUUID.notifier).state = uuid;
+    final _ = ref.refresh(imageListProvider);
 
-    // ignore: use_build_context_synchronously
+    if (!context.mounted) return;
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context) => const HomePage()
+        //builder: (context) => const HomePage()
+        builder: (context) => const TestPage()
       ),
       (route) => false
     );
