@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/device_infos.dart';
 import 'package:photon/models/settings.dart';
-import 'package:photon/pages/home_page.dart';
+import 'package:photon/pages/home/home_page.dart';
 //import 'package:photon/pages/loading_page.dart';
 
 void main() async {

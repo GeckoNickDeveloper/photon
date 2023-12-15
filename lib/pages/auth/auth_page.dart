@@ -6,8 +6,8 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 
 
-class ScanQRPage extends StatelessWidget {
-  ScanQRPage({super.key});
+class AuthPage extends StatelessWidget {
+  AuthPage({super.key});
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 

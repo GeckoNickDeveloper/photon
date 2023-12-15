@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/providers/providers.dart';
 
 class UploadPage extends StatelessWidget {
-  final String serverInfos;
+  //final String serverInfos;
   
-  const UploadPage({super.key, required this.serverInfos});
+  //const UploadPage({super.key, required this.serverInfos});
+  const UploadPage({super.key});
   
   @override
   Widget build(BuildContext context) {

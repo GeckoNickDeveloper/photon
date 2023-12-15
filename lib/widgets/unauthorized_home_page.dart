@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:photon/pages/scan_qr_page.dart';
+import 'package:photon/pages/auth/auth_page.dart';
 
 class UnauthorizedHomePage extends StatelessWidget{
   const UnauthorizedHomePage({super.key});
@@ -18,7 +18,7 @@ class UnauthorizedHomePage extends StatelessWidget{
               if (!context.mounted) return;
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ScanQRPage(),
+                  builder: (context) => AuthPage(),
                 ),
               );
             } else {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/pages/home_page.dart';
+import 'package:photon/pages/home/home_page.dart';
 import 'package:photon/pages/test_page.dart';
 import 'package:photon/providers/providers.dart';
 import 'package:photon/services/local_storage_service.dart';
