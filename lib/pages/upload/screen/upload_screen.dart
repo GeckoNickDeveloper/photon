@@ -30,7 +30,7 @@ class UploadScreen extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: list.length,
                       itemBuilder:(context, index) {
-                        return UploadTile(img: list[index]);
+                        return UploadTile(id: list[index].path);
                       },
                     ),
                   ),

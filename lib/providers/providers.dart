@@ -15,8 +15,16 @@ final settingsProvider = StateProvider((ref) => null);
 // Device UUID
 final deviceUUID = StateProvider<String?>((ref) => null);
 
+
+
+//=============================================== Upload Page Providers
 // Image list
-final imageListerProvider = FutureProvider((ref) async => ImageListerService.listAllImages());
+final imageListerProvider = FutureProvider.autoDispose((ref) async {
+  final list = await ImageListerService.listAllImages();
+  final tmp = list.sublist(0, 10);
+  ref.watch(uploadImageListNotifier.notifier).from(tmp);
+  return list;
+});
 // Si fa watch(providerName).when(
 //  data: callback to build widget on data
 //  error: callback to build widget on error
@@ -26,14 +34,11 @@ final imageListerProvider = FutureProvider((ref) async => ImageListerService.lis
 // PER RESETTARE
 // ref.refresh(providerName)
 
-
-
-//final imageListNotifier = StateNotifierProvider<ImageListNotifier, List<PhotonImage>>((ref) => ImageListNotifier([]));
-
-// Upload page
+// List notifier
 final uploadImageListNotifier = StateNotifierProvider<UploadImageListNotifier, List<PhotonImage>>((ref) => UploadImageListNotifier([]));
 
-final specificUploadImageProvider = ProviderFamily<PhotonImage, String>((ref, path) {
+// Family provider for single item
+final specificUploadImageProvider = Provider.family<PhotonImage, String>((ref, path) {
   final list = ref.watch(uploadImageListNotifier);
 
   return list.firstWhere((element) => element.path == path);

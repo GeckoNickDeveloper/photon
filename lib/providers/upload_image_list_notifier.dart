@@ -6,9 +6,9 @@ import 'package:photon/services/photon_api_service.dart';
 
 class UploadImageListNotifier extends StateNotifier<List<PhotonImage>> {
   bool uploading;
-  bool cancelled;
+  bool canceled;
   
-  UploadImageListNotifier(super.state) : uploading = false, cancelled = false;
+  UploadImageListNotifier(super.state) : uploading = false, canceled = false;
 
   int length() {
     return state.length;
@@ -32,11 +32,11 @@ class UploadImageListNotifier extends StateNotifier<List<PhotonImage>> {
 
   void status(int index, UploadStatus upState) {
     final tmp = [...state];
-    tmp[index] = PhotonImage(name: tmp[index].name, path: tmp[index].path, file: tmp[index].file, status: tmp[index].status);//upState;
+    tmp[index] = PhotonImage(name: tmp[index].name, path: tmp[index].path, file: tmp[index].file, status: upState);//upState;
     state = [...tmp];
   }
 
-  upload(PhotonServerModel server) async {
+  Future<void> upload(PhotonServerModel server) async {
     if(uploading) return;
     uploading = true;
 
@@ -44,7 +44,9 @@ class UploadImageListNotifier extends StateNotifier<List<PhotonImage>> {
     
     final len = length();
     for(var i = 0; i < len; ++i) {
-      if(cancelled) {
+      if(state[i].status == UploadStatus.success) continue;
+
+      if(canceled) {
         status(i, UploadStatus.canceled);
         continue;
       } else {
@@ -56,8 +58,8 @@ class UploadImageListNotifier extends StateNotifier<List<PhotonImage>> {
     }
 
     uploading = false;
-    cancelled = false;
+    canceled = false;
   }
 
-  void cancel() => cancelled = true;
+  void cancel() => canceled = true;
 }
