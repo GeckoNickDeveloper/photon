@@ -1,11 +1,10 @@
 import 'package:photon/services/local_storage_service.dart';
-import 'package:uuid/uuid.dart';
 
 class Settings {
   static Settings? _instance;
-  bool? deleteOnUpload;
+  bool deleteOnUpload;
 
-  Settings._();
+  Settings._() : deleteOnUpload = false;
 
   factory Settings() {
     _instance ??= Settings._();
