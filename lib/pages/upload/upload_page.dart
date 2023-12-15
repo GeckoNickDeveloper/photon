@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/pages/upload/screen/error_screen.dart';
+import 'package:photon/pages/upload/screen/loading_screen.dart';
+import 'package:photon/pages/upload/screen/upload_screen.dart';
 import 'package:photon/providers/providers.dart';
 
 class UploadPage extends StatelessWidget {
@@ -17,62 +20,32 @@ class UploadPage extends StatelessWidget {
       ),
       body: Consumer(
         builder:(context, ref, child) {
-          final list = ref.watch(imageListerProvider);
+          final listFiles = ref.watch(imageListerProvider);
 
-          return list.when<Widget>(
+          return listFiles.when<Widget>(
             // Data screen
-            data: (data) {
-              ref.read(uploadImageListNotifier.notifier).from(data);
-              return const Placeholder(
-                child: Text('Data'),
-              );
+            data: (_) {
+              return const UploadScreen();
             },
             // Error screen
-            error:(error, stackTrace) {
-              return const Placeholder(
-                child: Text('Error'),
-              );
+            error: (error, stackTrace) {
+              return const ErrorScreen();
             },
             // Loading screen
-            loading:() {
-              return const Placeholder(
-                child: Text('Loading'),
-              );
+            loading: () {
+              return const LoadingScreen();
             },
           );
         },
       ),
-       /*Center(
-        child: Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'Placeholder Text',
-              ),
-              Text(serverInfos),
-              ListView.builder(
-                itemCount: ref.watch(imageListNotifier).length,
-                itemBuilder:(context, index) {
-                  return ListTile(
-                    title: Text(
-                      ref.watch(imageListNotifier)[index].name
-                    )
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),*/
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      /*floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ElevatedButton(
         onPressed: () {
           // TODO: manage cancel
           Navigator.pop(context);
         },
         child: const Icon(Icons.backpack),
-      ),
+      ),*/
     );
   }
 }

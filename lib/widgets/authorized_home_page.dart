@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/pages/upload_page.dart';
+import 'package:photon/pages/upload/upload_page.dart';
 import 'package:photon/providers/providers.dart';
 
 class AuthorizedHomePage extends StatelessWidget{
@@ -15,7 +15,7 @@ class AuthorizedHomePage extends StatelessWidget{
             return ElevatedButton(
               onPressed: () {
                 // Ask permission
-                final _ = ref.refresh(imageListerProvider);
+                ref.refresh(imageListerProvider);
 
                 Navigator.of(context).push(
                   MaterialPageRoute(
