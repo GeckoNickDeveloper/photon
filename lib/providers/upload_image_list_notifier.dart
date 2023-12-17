@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/photon_image.dart';
 import 'package:photon/models/photon_server_model.dart';
@@ -51,7 +53,7 @@ class UploadImageListNotifier extends StateNotifier<List<PhotonImage>> {
         continue;
       } else {
         // Manage Errors
-        await Future.delayed(const Duration(milliseconds: 200));
+        await Future.delayed(Duration(milliseconds: (Random().nextInt(10) * 100)));
         //await apiService.uploadImage(server, state[i]);
         status(i, UploadStatus.success);
       }
