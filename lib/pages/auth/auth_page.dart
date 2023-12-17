@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/photon_server_model.dart';
 import 'package:photon/providers/providers.dart';
+import 'package:photon/services/photon_api_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 
@@ -40,22 +41,44 @@ class AuthPage extends StatelessWidget {
   }
 
   void _onQRViewCreated(QRViewController controller, BuildContext context, WidgetRef ref) {
-    controller.scannedDataStream.listen((scanData) {
-      final psm = parser(scanData.code!);
+    controller.scannedDataStream.listen((scanData) async {
+      var psm = parser(scanData.code!);
 
-      // Update Server Informations
-      ref.read(serverInformationsProvider.notifier).state = psm;
 
       if (psm == null) {
         // Snackbar invalid QR
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid QR. Please retry.'))
-        );
+        ScaffoldMessenger
+          .of(context)
+          .showSnackBar(
+            const SnackBar(
+              content: Text('Invalid QR. Please retry.')
+            )
+          );
+          
+      } else {
+        try {
+          await PhotonApiService().register(psm);
+
+          if(!context.mounted) return;
+          controller.dispose();
+          Navigator.of(context).pop();
+        } on Exception catch(e) {
+          psm = null;
+          
+          if(!context.mounted) return;
+          ScaffoldMessenger
+            .of(context)
+            .showSnackBar(
+              SnackBar(
+                content: Text(e.toString()/*'Unable to register to the server. Try again in the same network'*/)
+              )
+            );
+
+        } finally {
+          // Update Server Informations
+          ref.read(serverInformationsProvider.notifier).state = psm;
+        }
       }
-      
-      controller.dispose();
-      debugPrint('========================= ${scanData.code}');
-      Navigator.of(context).pop();
     });
   }
 
