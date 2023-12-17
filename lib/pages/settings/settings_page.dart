@@ -27,7 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
               value: deleteOnUpload,
               onChanged: (value) {
                 setState(() {
-                  Settings().deleteOnUpload = value;
+                  Settings().updateDeleteOnUpload(value);
                   deleteOnUpload = value;
                 });
               }

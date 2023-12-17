@@ -34,24 +34,22 @@ class LocalStorageService {
     return value;
   }
 
-  /// Token
-  Future<String?> readToken() async {
+  /// Settings - Delete On Update
+  Future<bool?> readDeleteOnUpdate() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    String? value = sp.getString('token');
+    bool? value = sp.getBool('settings-deleteOnUpdate');
     return value;
   }
 
-  Future<bool> writeToken(String uuid) async {
+  Future<bool> writeDeleteOnUpdate(bool deleteOnUpload) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    bool value = await sp.setString('token', uuid);
+    bool value = await sp.setBool('settings-deleteOnUpdate', deleteOnUpload);
     return value;
   }
 
-  Future<bool> removeToken() async {
+  Future<bool> removeDeleteOnUpdate() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    bool value = await sp.remove('token');
+    bool value = await sp.remove('settings-deleteOnUpdate');
     return value;
   }
-
-  /// TODO create API for setting
 }

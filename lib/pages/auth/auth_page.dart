@@ -44,9 +44,8 @@ class AuthPage extends StatelessWidget {
     controller.scannedDataStream.listen((scanData) async {
       var psm = parser(scanData.code!);
 
-
       if (psm == null) {
-        // Snackbar invalid QR
+        // Invalid QR Snackbar
         ScaffoldMessenger
           .of(context)
           .showSnackBar(
@@ -54,7 +53,6 @@ class AuthPage extends StatelessWidget {
               content: Text('Invalid QR. Please retry.')
             )
           );
-          
       } else {
         try {
           await PhotonApiService().register(psm);
@@ -65,6 +63,7 @@ class AuthPage extends StatelessWidget {
         } on Exception catch(e) {
           psm = null;
           
+          // API Error Snackbar
           if(!context.mounted) return;
           ScaffoldMessenger
             .of(context)
