@@ -15,15 +15,16 @@ class HistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Upload'),
+        title: const Text('History'),
       ),
       body: Consumer(
         builder:(context, ref, child) {
-          final listFiles = ref.watch(imageListerProvider);
+          final listFiles = ref.watch(historyProvider);
 
           return listFiles.when<Widget>(
             // Data screen
             data: (data) {
+              ref.read(historyListProvider.notifier).state = data;
               return const HistoryScreen();
             },
             // Error screen

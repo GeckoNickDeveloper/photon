@@ -1,4 +1,5 @@
 import 'package:photon/models/device_infos.dart';
+import 'package:photon/models/photon_history_record.dart';
 import 'package:photon/models/photon_image.dart';
 import 'package:photon/models/photon_server_model.dart';
 import 'package:photon/models/settings.dart';
@@ -14,6 +15,8 @@ class PhotonApiService {
   }
   
   // API METHODS
+  /// Requires authentication
+  /// Upload an image to the specified photon server
   Future<void> uploadImage(PhotonServerModel server, PhotonImage img) async {
     final device = DeviceInfos();
     final settings = Settings();
@@ -26,11 +29,27 @@ class PhotonApiService {
     }
   }
 
-  /*
+  /// Requires authentication
+  /// Retrieves a list of all the images uploaded to the specified photon server
+  Future<List<PhotonHistoryRecord>> history(PhotonServerModel server) async {
+    final device = DeviceInfos();
+    final settings = Settings();
+    final List<PhotonHistoryRecord> list = [];
+
+    // TODO Make api call and check for errors
+    // TODO Manage errors
+
+    
+
+    return list;
+  }
   
-  uploadImages
-  retrieveHistory
-  auth2Api
-  
-  */
+  // Must be invoked in order to access API features
+  Future<void> register(PhotonServerModel server) async {
+    final device = DeviceInfos();
+    final settings = Settings();
+    
+    // TODO Make api call and check for errors
+    // TODO Manage errors
+  }
 }

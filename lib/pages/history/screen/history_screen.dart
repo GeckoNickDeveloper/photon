@@ -11,8 +11,7 @@ class HistoryScreen extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final server = ref.watch(serverInformationsProvider);
-        final uploading = ref.watch(uploadImageListNotifier.notifier).uploading;
-        final list = ref.watch(uploadImageListNotifier);
+        final list = ref.watch(historyListProvider);
 
         if(server == null) {
           Navigator.pop(context);
@@ -29,16 +28,6 @@ class HistoryScreen extends StatelessWidget {
                     return UploadTile(id: list[index].path);
                   },
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if(uploading) {
-                    ref.read(uploadImageListNotifier.notifier).cancel();
-                  } else {
-                    ref.read(uploadImageListNotifier.notifier).upload(server!);
-                  }
-                },
-                child: (uploading) ? const Text('Cancel') : const Text('Start upload'),
               ),
             ],
           ),
