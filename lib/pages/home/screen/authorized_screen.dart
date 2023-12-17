@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:photon/pages/upload/upload_page.dart';
 import 'package:photon/providers/providers.dart';
 
-class AuthorizedHomePage extends StatelessWidget{
-  const AuthorizedHomePage({super.key});
+class AuthorizedScreen extends StatelessWidget{
+  const AuthorizedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +14,17 @@ class AuthorizedHomePage extends StatelessWidget{
         Consumer(
           builder:(context, ref, child) {
             return ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // Ask permission
-                ref.refresh(imageListerProvider);
+                var status = await Permission.manageExternalStorage.request();
+                if (status != PermissionStatus.granted) openAppSettings();
+                status = await Permission.accessMediaLocation.request();
+                if (status != PermissionStatus.granted) openAppSettings();
+                
+                // List all files
+                final _ = ref.refresh(imageListerProvider);
 
+                if (!context.mounted) return;
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const UploadPage(),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photon/pages/auth/auth_page.dart';
 
-class UnauthorizedHomePage extends StatelessWidget{
-  const UnauthorizedHomePage({super.key});
+class UnauthorizedScreen extends StatelessWidget{
+  const UnauthorizedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
