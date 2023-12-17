@@ -38,14 +38,15 @@ class UploadPage extends StatelessWidget {
           );
         },
       ),
-      /*floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: ElevatedButton(
-        onPressed: () {
-          // TODO: manage cancel
-          Navigator.pop(context);
+      // Remove auth
+      floatingActionButton: Consumer(
+        builder: (context, ref, _) {
+          return FloatingActionButton(
+            onPressed: () { ref.read(serverInformationsProvider.notifier).state = null; },
+            child: const Icon(Icons.token_outlined),
+          );
         },
-        child: const Icon(Icons.backpack),
-      ),*/
+      ),
     );
   }
 }

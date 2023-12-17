@@ -27,12 +27,12 @@ class HomePage extends StatelessWidget {
           }
         },
       ),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // Remove auth
       floatingActionButton: Consumer(
         builder: (context, ref, _) {
           return FloatingActionButton(
-            onPressed: () { ref.watch(serverInformationsProvider.notifier).state = null; },
-            child: const Icon(Icons.clear_all),
+            onPressed: () { ref.read(serverInformationsProvider.notifier).state = null; },
+            child: const Icon(Icons.token_outlined),
           );
         },
       ),
