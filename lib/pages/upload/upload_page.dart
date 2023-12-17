@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/pages/upload/screen/error_screen.dart';
 import 'package:photon/pages/upload/screen/loading_screen.dart';
 import 'package:photon/pages/upload/screen/upload_screen.dart';
+import 'package:photon/pages/settings/settings_page.dart';
 import 'package:photon/providers/providers.dart';
 
 class UploadPage extends StatelessWidget {
@@ -17,6 +18,18 @@ class UploadPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Upload'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsPage(),
+                  ),
+                );
+            },
+            icon: const Icon(Icons.settings)
+          )
+        ]
       ),
       body: Consumer(
         builder:(context, ref, child) {

@@ -1,32 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/models/settings.dart';
 
-
-class SettingsPage extends ConsumerWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  bool deleteOnUpload = Settings().deleteOnUpload;
   
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Settings'),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Settings Page placeholder text:',
-            ),
+            const Text('Delete images after upload:'),
+            Switch(
+              value: deleteOnUpload,
+              onChanged: (value) {
+                setState(() {
+                  Settings().deleteOnUpload = value;
+                  deleteOnUpload = value;
+                });
+              }
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed:() { },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
-  } 
+  }
 }
