@@ -53,9 +53,13 @@ class UploadImageListNotifier extends StateNotifier<List<PhotonImage>> {
         continue;
       } else {
         // Manage Errors
-        await Future.delayed(Duration(milliseconds: (Random().nextInt(10) * 100)));
-        //await apiService.uploadImage(server, state[i]);
-        status(i, UploadStatus.success);
+        //await Future.delayed(Duration(milliseconds: (Random().nextInt(10) * 100)));
+        try {
+          await apiService.uploadImage(server, state[i]);
+          status(i, UploadStatus.success);
+        } on Exception {
+          status(i, UploadStatus.failed);
+        }
       }
     }
 

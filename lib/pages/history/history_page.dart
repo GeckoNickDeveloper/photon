@@ -22,8 +22,8 @@ class HistoryPage extends StatelessWidget {
           return listFiles.when<Widget>(
             // Data screen
             data: (data) {
-              ref.read(historyListProvider.notifier).state = data;
-              return const HistoryScreen();
+              //ref.read(historyListProvider.notifier).state = [...data];
+              return HistoryScreen(list: data);
             },
             // Error screen
             error: (error, stackTrace) {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/pages/upload/widget/upload_tile.dart';
+import 'package:photon/models/photon_history_record.dart';
 import 'package:photon/providers/providers.dart';
 
 class HistoryScreen extends StatelessWidget {
-  const HistoryScreen({super.key});
+  final List<PhotonHistoryRecord> list;
+  
+  const HistoryScreen({super.key, required this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -18,21 +20,31 @@ class HistoryScreen extends StatelessWidget {
         }
 
         return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder:(context, index) {
-                    return UploadTile(id: list[index].path);
-                  },
-                ),
-              ),
-            ],
-          ),
+          child: (list.isEmpty) ? emptyListBuilder() : listBuilder()
         );
       },
     );
   }
+
+
+  // Nothing to display
+  Widget emptyListBuilder() => const Text('Nothing to display');
+
+  // Display list
+  Widget listBuilder() => 
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: list.length,
+            itemBuilder:(context, index) {
+              return ListTile(
+                title: Text(list[index].filename),
+              );
+            },
+          ),
+        ),
+      ],
+    );
 }
