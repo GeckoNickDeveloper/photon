@@ -6,9 +6,7 @@ import 'package:photon/pages/history/screen/loading_screen.dart';
 import 'package:photon/providers/providers.dart';
 
 class HistoryPage extends StatelessWidget {
-  final String serverInfos;
-  
-  const HistoryPage({super.key, required this.serverInfos});
+  const HistoryPage({super.key});
   
   @override
   Widget build(BuildContext context) {

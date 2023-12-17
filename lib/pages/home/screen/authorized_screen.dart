@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:photon/pages/history/history_page.dart';
 import 'package:photon/pages/upload/upload_page.dart';
 import 'package:photon/providers/providers.dart';
 
@@ -9,11 +10,12 @@ class AuthorizedScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Consumer(
-          builder:(context, ref, child) {
-            return ElevatedButton(
+    return Consumer(
+      builder: (context, ref, child) {
+        return Column(
+          children: [
+            /// UPLOAD PAGE
+            ElevatedButton(
               onPressed: () async {
                 // Ask permission
                 var status = await Permission.manageExternalStorage.request();
@@ -38,21 +40,32 @@ class AuthorizedScreen extends StatelessWidget{
                   Icon(Icons.upload),
                 ]
               )
-            );
-          },
-        ),
-        ElevatedButton(
-          onPressed: () => { },
-          child: const Row(
-            children: [
-              Text('History'),
-              Spacer(),
-              Icon(Icons.history),
-            ]
-          )
-        ),
-      ]
+            ),
+            
+            /// HISTORY PAGE
+            ElevatedButton(
+              onPressed: () async {
+                // Request history
+                final _ = ref.refresh(historyProvider);
+
+                if (!context.mounted) return;
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const HistoryPage(),
+                  ),
+                );
+              },
+              child: const Row(
+                children: [
+                  Text('History'),
+                  Spacer(),
+                  Icon(Icons.history),
+                ]
+              )
+            ),
+          ]
+        );
+      },
     );
   }
-  
 }
