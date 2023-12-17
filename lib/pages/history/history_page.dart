@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/pages/history/screen/error_screen.dart';
+import 'package:photon/pages/history/screen/history_screen.dart';
+import 'package:photon/pages/history/screen/loading_screen.dart';
 import 'package:photon/providers/providers.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -14,40 +17,34 @@ class HistoryPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Upload'),
       ),
-      body: Center(
-        child: Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'Placeholder Text',
-              ),
-              Text(serverInfos),
-              /*Consumer(
-                builder:(context, ref, child) {
-                  return ListView.builder(
-                    itemCount: ref.watch(imageListNotifier).length,
-                    itemBuilder:(context, index) {
-                      return ListTile(
-                        title: Text(
-                          ref.watch(imageListNotifier)[index].name
-                        )
-                      );
-                    },
-                  );
-                },
-              ),*/
-            ],
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: ElevatedButton(
-        onPressed: () {
-          // TODO: manage cancel
-          Navigator.pop(context);
+      body: Consumer(
+        builder:(context, ref, child) {
+          final listFiles = ref.watch(imageListerProvider);
+
+          return listFiles.when<Widget>(
+            // Data screen
+            data: (data) {
+              return const HistoryScreen();
+            },
+            // Error screen
+            error: (error, stackTrace) {
+              return const ErrorScreen();
+            },
+            // Loading screen
+            loading: () {
+              return const LoadingScreen();
+            },
+          );
         },
-        child: const Icon(Icons.backpack),
+      ),
+      // Remove auth
+      floatingActionButton: Consumer(
+        builder: (context, ref, _) {
+          return FloatingActionButton(
+            onPressed: () { ref.read(serverInformationsProvider.notifier).state = null; },
+            child: const Icon(Icons.token_outlined),
+          );
+        },
       ),
     );
   }
