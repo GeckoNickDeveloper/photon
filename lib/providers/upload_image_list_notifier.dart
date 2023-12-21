@@ -32,7 +32,13 @@ class UploadImageListNotifier extends StateNotifier<List<PhotonImage>> {
 
   void status(int index, UploadStatus upState) {
     final tmp = [...state];
-    tmp[index] = PhotonImage(name: tmp[index].name, path: tmp[index].path, file: tmp[index].file, status: upState);//upState;
+   
+    tmp[index] = PhotonImage(
+      name: tmp[index].name,
+      path: tmp[index].path,
+      file: tmp[index].file,
+      status: upState);
+  
     state = [...tmp];
   }
 
@@ -55,7 +61,8 @@ class UploadImageListNotifier extends StateNotifier<List<PhotonImage>> {
         try {
           await apiService.uploadImage(server, state[i]);
           status(i, UploadStatus.success);
-        } on Exception {
+        } on Exception catch(e) {
+          print(e.toString());
           status(i, UploadStatus.failed);
         }
       }
