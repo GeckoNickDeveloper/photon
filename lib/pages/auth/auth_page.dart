@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/photon_server_model.dart';
-import 'package:photon/providers/providers.dart';
+import 'package:photon/providers/global/providers.dart';
 import 'package:photon/services/photon_api_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -9,6 +9,8 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class AuthPage extends StatelessWidget {
   AuthPage({super.key});
+
+  bool isProcessing = false;
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -42,6 +44,9 @@ class AuthPage extends StatelessWidget {
 
   void _onQRViewCreated(QRViewController controller, BuildContext context, WidgetRef ref) {
     controller.scannedDataStream.listen((scanData) async {
+      if(isProcessing) return;
+      isProcessing = true;
+      
       var psm = parser(scanData.code!);
 
       if (psm == null) {
@@ -55,6 +60,7 @@ class AuthPage extends StatelessWidget {
           );
       } else {
         try {
+          // Move into homepage
           await PhotonApiService().register(psm);
 
           if(!context.mounted) return;
@@ -77,6 +83,8 @@ class AuthPage extends StatelessWidget {
           // Update Server Informations
           ref.read(serverInformationsProvider.notifier).state = psm;
         }
+
+        isProcessing = false;
       }
     });
   }

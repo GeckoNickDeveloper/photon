@@ -4,7 +4,10 @@ import 'package:photon/pages/history/screen/error_screen.dart';
 import 'package:photon/pages/history/screen/history_screen.dart';
 import 'package:photon/pages/history/screen/loading_screen.dart';
 import 'package:photon/pages/settings/settings_page.dart';
-import 'package:photon/providers/providers.dart';
+
+// Providers
+import 'package:photon/providers/global/providers.dart';
+import 'package:photon/providers/history/providers.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});

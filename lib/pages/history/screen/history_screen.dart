@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/photon_history_record.dart';
-import 'package:photon/providers/providers.dart';
+
+// Providers
+import 'package:photon/providers/global/providers.dart';
+import 'package:photon/providers/history/providers.dart';
 
 class HistoryScreen extends StatelessWidget {
   final List<PhotonHistoryRecord> list;

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/photon_image.dart';
 import 'package:photon/models/upload_status.dart';
-import 'package:photon/providers/providers.dart';
+
+// Providers
+import 'package:photon/providers/global/providers.dart';
+import 'package:photon/providers/upload/providers.dart';
 
 class UploadTile extends StatelessWidget {
   final String id;

@@ -4,7 +4,10 @@ import 'package:photon/pages/upload/screen/error_screen.dart';
 import 'package:photon/pages/upload/screen/loading_screen.dart';
 import 'package:photon/pages/upload/screen/upload_screen.dart';
 import 'package:photon/pages/settings/settings_page.dart';
-import 'package:photon/providers/providers.dart';
+
+// Providers
+import 'package:photon/providers/global/providers.dart';
+import 'package:photon/providers/upload/providers.dart';
 
 class UploadPage extends StatelessWidget {
   //final String serverInfos;

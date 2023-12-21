@@ -3,7 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photon/pages/history/history_page.dart';
 import 'package:photon/pages/upload/upload_page.dart';
-import 'package:photon/providers/providers.dart';
+
+// Providers
+import 'package:photon/providers/global/providers.dart';
+import 'package:photon/providers/upload/providers.dart';
+import 'package:photon/providers/history/providers.dart';
 
 class AuthorizedScreen extends StatelessWidget{
   const AuthorizedScreen({super.key});
