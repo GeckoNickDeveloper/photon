@@ -5,7 +5,6 @@ import 'package:photon/pages/upload/widget/upload_tile.dart';
 // Providers
 import 'package:photon/providers/global/providers.dart';
 import 'package:photon/providers/upload/providers.dart';
-import 'package:photon/providers/history/providers.dart';
 
 
 class UploadScreen extends StatelessWidget {
