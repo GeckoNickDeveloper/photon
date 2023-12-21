@@ -1,9 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/photon_image.dart';
-import 'package:photon/providers/upload_image_list_notifier.dart';
+import 'package:photon/providers/upload/notifiers/upload_image_list_notifier.dart';
 import 'package:photon/services/image_lister_service.dart';
-// Globals providers
-import 'package:photon/providers/global/providers.dart';
 
 // Image list
 final imageListerProvider = FutureProvider.autoDispose((ref) async {

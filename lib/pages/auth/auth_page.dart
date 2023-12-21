@@ -1,103 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/models/photon_server_model.dart';
-import 'package:photon/providers/global/providers.dart';
-import 'package:photon/services/photon_api_service.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:photon/pages/auth/screen/error_screen.dart';
+import 'package:photon/pages/auth/screen/loading_screen.dart';
+import 'package:photon/pages/auth/screen/registered_screen.dart';
+import 'package:photon/pages/auth/screen/scanner_screen.dart';
+import 'package:photon/providers/auth/providers.dart';
 
 
 
 class AuthPage extends StatelessWidget {
   AuthPage({super.key});
 
-  bool isProcessing = false;
-
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Consumer(
-              builder: (context, ref, child) {
-                return QRView(
-                  key: qrKey,
-                  overlay: QrScannerOverlayShape(),
-                  onQRViewCreated: (controller) => _onQRViewCreated(controller, context, ref),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: ElevatedButton(
-        child: const Text('Cancel'),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+      body: Center(
+        child: Consumer(
+          builder: (context, ref, _) {
+            final isScanning = ref.watch(isScanningProvider);
+      
+            if(isScanning) {
+              return ScannerScreen();
+            }
+      
+            return ref.watch(registerProvider).when(
+              data: (_) => const RegisteredScreen(),
+              error: (error, stackTrace) => const ErrorScreen(),
+              loading: () => const LoadingScreen());
+          },
+        ),
       ),
     );
-  }
-
-  void _onQRViewCreated(QRViewController controller, BuildContext context, WidgetRef ref) {
-    controller.scannedDataStream.listen((scanData) async {
-      if(isProcessing) return;
-      isProcessing = true;
-      
-      var psm = parser(scanData.code!);
-
-      if (psm == null) {
-        // Invalid QR Snackbar
-        ScaffoldMessenger
-          .of(context)
-          .showSnackBar(
-            const SnackBar(
-              content: Text('Invalid QR. Please retry.')
-            )
-          );
-      } else {
-        try {
-          // Move into homepage
-          await PhotonApiService().register(psm);
-
-          if(!context.mounted) return;
-          controller.dispose();
-          Navigator.of(context).pop();
-        } on Exception catch(e) {
-          psm = null;
-          
-          // API Error Snackbar
-          if(!context.mounted) return;
-          ScaffoldMessenger
-            .of(context)
-            .showSnackBar(
-              SnackBar(
-                content: Text(e.toString()/*'Unable to register to the server. Try again in the same network'*/)
-              )
-            );
-
-        } finally {
-          // Update Server Informations
-          ref.read(serverInformationsProvider.notifier).state = psm;
-        }
-
-        isProcessing = false;
-      }
-    });
-  }
-
-  PhotonServerModel? parser(String json) {
-    PhotonServerModel? psm;
-
-    try {
-      psm = PhotonServerModel.fromJson(jsonString: json);
-    } on FormatException {
-      psm = null;
-    }
-    
-    return psm;
   }
 }
