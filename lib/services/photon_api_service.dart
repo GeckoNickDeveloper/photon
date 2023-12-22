@@ -95,6 +95,10 @@ class PhotonApiService {
     final device = DeviceInfos();
     final settings = Settings();
     
+    if (!img.file.existsSync()) {
+      return;
+    }
+
     final path = img.path.split('/');
     final realPath = path.sublist(4, path.length - 1).join('/');
 
@@ -119,7 +123,6 @@ class PhotonApiService {
     request.fields.addAll({
       'path': realPath
     });
-    print(request.files.length);
 
     // Send request
     final response = await request.send();/*await http.post(
@@ -140,7 +143,12 @@ class PhotonApiService {
     _checkError(response.statusCode);
 
     if(settings.deleteOnUpload) {
-      // TODO implement element delete
+      try {
+        print('deleting ${img.name}');
+        img.file.deleteSync();
+      } on Exception {
+        print('cannot delete ${img.name}');
+      }
     }
   }
 

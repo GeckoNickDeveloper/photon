@@ -6,8 +6,9 @@ import 'package:photon/services/image_lister_service.dart';
 // Image list
 final imageListerProvider = FutureProvider.autoDispose((ref) async {
   final list = await ImageListerService.listAllImages();
-  final tmp = list.sublist(0, 10);
-  ref.watch(uploadImageListNotifier.notifier).from(tmp);
+//  final tmp = list.sublist(0, 10);
+//  ref.watch(uploadImageListNotifier.notifier).from(tmp);
+  ref.watch(uploadImageListNotifier.notifier).from(list);
   return list;
 });
 // Si fa watch(providerName).when(
