@@ -1,14 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/models/image_model.dart';
+import 'package:photon/models/photon_image.dart';
 
-class ImageListNotifier extends StateNotifier<List<ImageModel>> {
+class ImageListNotifier extends StateNotifier<List<PhotonImage>> {
   ImageListNotifier(super.state);
 
   length() {
     return state.length;
   }
 
-  add(ImageModel item) {
+  add(PhotonImage item) {
     final tmp = [...state];
     tmp.add(item);
     state = [...tmp];

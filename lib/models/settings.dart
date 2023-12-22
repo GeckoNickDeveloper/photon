@@ -15,9 +15,15 @@ class Settings {
     final localStorageService = LocalStorageService();
     
     // Assign defaul values to settings
-    deleteOnUpload = (await localStorageService.readToken() == null);
-    // uuid = await localStorageService.readUUID();
-    // uuid ??= const Uuid().v8();
-    // await localStorageService.writeUUID(uuid!);
+    deleteOnUpload = (await localStorageService.readDeleteOnUpdate()) ?? false;
+    await localStorageService.writeDeleteOnUpdate(deleteOnUpload);
+  }
+
+  Future<void> updateDeleteOnUpload(bool deleteOnUpload) async {
+    final localStorageService = LocalStorageService();
+    
+    // Assign defaul values to settings
+    this.deleteOnUpload = deleteOnUpload;
+    await localStorageService.writeDeleteOnUpdate(deleteOnUpload);
   }
 }
