@@ -23,9 +23,11 @@ class AuthorizedScreen extends StatelessWidget{
               onPressed: () async {
                 // Ask permission
                 var status = await Permission.manageExternalStorage.request();
-                if (status != PermissionStatus.granted) openAppSettings();
-                status = await Permission.accessMediaLocation.request();
-                if (status != PermissionStatus.granted) openAppSettings();
+                print('storage ${status.toString()}');
+                if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) await openAppSettings();
+                //status = await Permission.accessMediaLocation.request();
+                //print('media ${status.toString()}');
+                //if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) await openAppSettings();
                 
                 // List all files
                 final _ = ref.refresh(imageListerProvider);

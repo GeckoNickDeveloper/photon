@@ -42,11 +42,9 @@ class ScannerScreen extends StatelessWidget {
         psm = PhotonServerModel.fromJson(jsonString: scanData.code!);
       } on Exception { }
 
-
-
       ref.read(serverInformationsProvider.notifier).state = psm;
-      final _ = ref.refresh(registerProvider);
       ref.read(isScanningProvider.notifier).state = false;
+      final _ = ref.refresh(registerProvider);
     });
   }
 }
