@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photon/models/device_infos.dart';
 import 'package:photon/models/settings.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -31,7 +32,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   deleteOnUpload = value;
                 });
               }
-            )
+            ),
+            Text('UUID: ${DeviceInfos().uuid!}'),
           ],
         ),
       ),

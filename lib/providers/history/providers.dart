@@ -6,7 +6,15 @@ import 'package:photon/services/photon_api_service.dart';
 
 // Request history to the server
 final historyProvider = FutureProvider.autoDispose((ref) async {
-  final list = await PhotonApiService().history(ref.read(serverInformationsProvider)!);
+  final server = ref.read(serverInformationsProvider);
+  
+  if (server == null) {
+    throw Exception('SERVER NULLO');
+  }
+  
+  final list = await PhotonApiService().history(server);
+  ref.read(historyListProvider.notifier).state = list;
+
   return list;
 });
 

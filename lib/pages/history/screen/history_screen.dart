@@ -7,9 +7,7 @@ import 'package:photon/providers/global/providers.dart';
 import 'package:photon/providers/history/providers.dart';
 
 class HistoryScreen extends StatelessWidget {
-  final List<PhotonHistoryRecord> list;
-  
-  const HistoryScreen({super.key, required this.list});
+  const HistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@ class HistoryScreen extends StatelessWidget {
         }
 
         return Center(
-          child: (list.isEmpty) ? emptyListBuilder() : listBuilder()
+          child: (list.isEmpty) ? emptyListBuilder() : listBuilder(list)
         );
       },
     );
@@ -34,7 +32,7 @@ class HistoryScreen extends StatelessWidget {
   Widget emptyListBuilder() => const Text('Nothing to display');
 
   // Display list
-  Widget listBuilder() => 
+  Widget listBuilder(List<PhotonHistoryRecord> list) => 
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
