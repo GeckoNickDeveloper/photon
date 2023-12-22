@@ -20,9 +20,7 @@ class HistoryScreen extends StatelessWidget {
           Navigator.pop(context);
         }
 
-        return Center(
-          child: (list.isEmpty) ? emptyListBuilder() : listBuilder(list)
-        );
+        return (list.isEmpty) ? emptyListBuilder() : listBuilder(list);
       },
     );
   }

@@ -12,31 +12,6 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final server = ref.watch(serverInformationsProvider);
-        final list = ref.watch(uploadImageListNotifier);
-
-        if(server == null) {
-          Navigator.pop(context);
-        }
-
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder:(context, index) {
-                    return UploadTile(id: list[index].path);
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+    return const CircularProgressIndicator();
   }
 }

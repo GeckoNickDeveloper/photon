@@ -31,26 +31,28 @@ class HistoryPage extends StatelessWidget {
           )
         ]
       ),
-      body: Consumer(
-        builder:(context, ref, child) {
-          final listFiles = ref.watch(historyProvider);
-
-          return listFiles.when<Widget>(
-            // Data screen
-            data: (data) {
-              //ref.read(historyListProvider.notifier).state = [...data];
-              return const HistoryScreen();
-            },
-            // Error screen
-            error: (error, stackTrace) {
-              return const ErrorScreen();
-            },
-            // Loading screen
-            loading: () {
-              return const LoadingScreen();
-            },
-          );
-        },
+      body: Center(
+        child: Consumer(
+          builder:(context, ref, child) {
+            final listFiles = ref.watch(historyProvider);
+      
+            return listFiles.when<Widget>(
+              // Data screen
+              data: (data) {
+                //ref.read(historyListProvider.notifier).state = [...data];
+                return const HistoryScreen();
+              },
+              // Error screen
+              error: (error, stackTrace) {
+                return const ErrorScreen();
+              },
+              // Loading screen
+              loading: () {
+                return const LoadingScreen();
+              },
+            );
+          },
+        ),
       ),
       // Remove auth
       floatingActionButton: Consumer(
