@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/models/photon_server_model.dart';
 import 'package:photon/pages/upload/screen/error_screen.dart';
 import 'package:photon/pages/upload/screen/loading_screen.dart';
 import 'package:photon/pages/upload/screen/upload_screen.dart';
@@ -36,6 +37,12 @@ class UploadPage extends StatelessWidget {
       ),
       body: Consumer(
         builder:(context, ref, child) {
+          final PhotonServerModel? auth = ref.watch(serverInformationsProvider);
+
+          if (auth == null) {
+            Navigator.pop(context);
+          }
+          
           final listFiles = ref.watch(imageListerProvider);
 
           return listFiles.when<Widget>(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/models/photon_server_model.dart';
 import 'package:photon/pages/history/screen/error_screen.dart';
 import 'package:photon/pages/history/screen/history_screen.dart';
 import 'package:photon/pages/history/screen/loading_screen.dart';
@@ -33,7 +34,13 @@ class HistoryPage extends StatelessWidget {
       ),
       body: Center(
         child: Consumer(
-          builder:(context, ref, child) {
+          builder: (context, ref, child) {
+            final PhotonServerModel? auth = ref.watch(serverInformationsProvider);
+
+            if (auth == null) {
+              Navigator.pop(context);
+            }
+
             final listFiles = ref.watch(historyProvider);
       
             return listFiles.when<Widget>(

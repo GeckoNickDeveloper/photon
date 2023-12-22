@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/pages/upload/widget/upload_tile.dart';
 // Providers
 import 'package:photon/providers/global/providers.dart';
-import 'package:photon/providers/history/providers.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});

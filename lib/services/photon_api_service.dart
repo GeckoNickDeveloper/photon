@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-//import 'package:dio/dio.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:photon/exception/photon_bad_request_exception.dart';
 import 'package:photon/exception/photon_conflict_exception.dart';
 import 'package:photon/exception/photon_forbidden_exception.dart';
