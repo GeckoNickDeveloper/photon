@@ -9,8 +9,8 @@ class RegisteredScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('REGISTRATO'),
         Consumer(
           builder: (context, ref, _) {
             return ElevatedButton(
@@ -19,7 +19,7 @@ class RegisteredScreen extends StatelessWidget {
                 ref.read(isScanningProvider.notifier).state = true;
                 Navigator.pop(context);
               },
-              child: const Placeholder()
+              child: const Text('Go to Home')
             );
           },
         ),

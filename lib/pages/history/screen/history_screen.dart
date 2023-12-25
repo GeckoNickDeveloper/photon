@@ -40,6 +40,7 @@ class HistoryScreen extends StatelessWidget {
             itemBuilder:(context, index) {
               return ListTile(
                 title: Text(list[index].filename),
+                subtitle: Text(list[index].date),
               );
             },
           ),

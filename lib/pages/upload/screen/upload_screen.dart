@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/models/photon_image.dart';
+import 'package:photon/models/photon_server_model.dart';
+import 'package:photon/models/upload_status.dart';
 import 'package:photon/pages/upload/widget/upload_tile.dart';
 
 // Providers
@@ -34,20 +37,29 @@ class UploadScreen extends StatelessWidget {
                   },
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  if(uploading) {
-                    ref.read(uploadImageListNotifier.notifier).cancel();
-                  } else {
-                    ref.read(uploadImageListNotifier.notifier).upload(server!);
-                  }
-                },
-                child: (uploading) ? const Text('Cancel') : const Text('Start upload'),
-              ),
+              elevatedButton(context, ref, server!, list, uploading),
             ],
           ),
         );
       },
+    );
+  }
+
+  Widget elevatedButton(BuildContext ctx, WidgetRef ref, PhotonServerModel server, List<PhotonImage> list, bool uploading) {
+    final remaining = list.where((element) => element.status != UploadStatus.success).toList().length;
+    final text = (uploading) ? const Text('Cancel') : ((remaining != 0) ? const Text('Upload') : const Text('Back'));
+
+    return ElevatedButton(
+      onPressed: () {
+        if(uploading) {
+          ref.read(uploadImageListNotifier.notifier).cancel();
+        } else if (remaining != 0) {
+          ref.read(uploadImageListNotifier.notifier).upload(server);
+        } else {
+          Navigator.pop(ctx);
+        }
+      },
+      child: text,
     );
   }
 }
