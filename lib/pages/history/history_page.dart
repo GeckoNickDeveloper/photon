@@ -20,16 +20,41 @@ class HistoryPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('History'),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsPage(),
-                  ),
+          Consumer(
+            builder:(context, ref, child) {
+              final svr = ref.watch(serverInformationsProvider);
+              final List<Widget> buttons = [];
+
+              if (svr != null) {
+                buttons.add(
+                  IconButton(
+                    onPressed: () {
+                      ref.read(serverInformationsProvider.notifier).state = null;
+                    },
+                    icon: const Icon(Icons.token_outlined)
+                  )
                 );
+              }
+
+              buttons.add(
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SettingsPage(),
+                        ),
+                      );
+                  },
+                  icon: const Icon(Icons.settings),
+                  tooltip: 'Settings',
+                )
+              );
+
+              return Row(
+                children: buttons,
+              );
             },
-            icon: const Icon(Icons.settings)
-          )
+          ),
         ]
       ),
       body: Center(
@@ -60,15 +85,6 @@ class HistoryPage extends StatelessWidget {
             );
           },
         ),
-      ),
-      // Remove auth
-      floatingActionButton: Consumer(
-        builder: (context, ref, _) {
-          return FloatingActionButton(
-            onPressed: () { ref.read(serverInformationsProvider.notifier).state = null; },
-            child: const Icon(Icons.token_outlined),
-          );
-        },
       ),
     );
   }

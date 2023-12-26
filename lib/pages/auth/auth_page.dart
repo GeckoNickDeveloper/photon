@@ -4,7 +4,9 @@ import 'package:photon/pages/auth/screen/error_screen.dart';
 import 'package:photon/pages/auth/screen/loading_screen.dart';
 import 'package:photon/pages/auth/screen/registered_screen.dart';
 import 'package:photon/pages/auth/screen/scanner_screen.dart';
+import 'package:photon/pages/settings/settings_page.dart';
 import 'package:photon/providers/auth/providers.dart';
+import 'package:photon/providers/global/providers.dart';
 
 
 
@@ -16,6 +18,46 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Scan QR'),
+        actions: [
+          Consumer(
+            builder:(context, ref, child) {
+              final svr = ref.watch(serverInformationsProvider);
+              final List<Widget> buttons = [];
+
+              if (svr != null) {
+                buttons.add(
+                  IconButton(
+                    onPressed: () {
+                      ref.read(serverInformationsProvider.notifier).state = null;
+                    },
+                    icon: const Icon(Icons.token_outlined)
+                  )
+                );
+              }
+
+              buttons.add(
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SettingsPage(),
+                        ),
+                      );
+                  },
+                  icon: const Icon(Icons.settings),
+                  tooltip: 'Settings',
+                )
+              );
+
+              return Row(
+                children: buttons,
+              );
+            },
+          ),
+        ]
+      ),
       body: Center(
         child: Consumer(
           builder: (context, ref, _) {

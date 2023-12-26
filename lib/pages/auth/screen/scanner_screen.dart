@@ -34,17 +34,18 @@ class ScannerScreen extends StatelessWidget {
 
   void onQRViewCreated(QRViewController controller, WidgetRef ref) {
     controller.scannedDataStream.listen((scanData) {
-      if(Scanner().locked()) return;
-      Scanner().lock();
-      
-      PhotonServerModel? psm;
-      try {
-        psm = PhotonServerModel.fromJson(jsonString: scanData.code!);
-      } on Exception { }
+      if(Scanner().locked()) {
+        Scanner().lock();
+      } else { 
+        PhotonServerModel? psm;
+        try {
+          psm = PhotonServerModel.fromJson(jsonString: scanData.code!);
+        } on Exception { }
 
-      ref.read(serverInformationsProvider.notifier).state = psm;
-      ref.read(isScanningProvider.notifier).state = false;
-      final _ = ref.refresh(registerProvider);
+        ref.read(serverInformationsProvider.notifier).state = psm;
+        ref.read(isScanningProvider.notifier).state = false;
+        final _ = ref.refresh(registerProvider);
+      }
     });
   }
 }
