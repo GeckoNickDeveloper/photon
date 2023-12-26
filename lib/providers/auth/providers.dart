@@ -7,13 +7,14 @@ import 'package:photon/providers/global/providers.dart';
 final isScanningProvider = StateProvider((ref) => true);
 
 // Register
-final registerProvider = FutureProvider.autoDispose((ref) async {
+final registerProvider = FutureProvider((ref) async {
   final server = ref.read(serverInformationsProvider);
 
   if(server == null) {
     throw Exception('NO SERVER');
   }
   
-  final response = await PhotonApiService().register(server);
-  return response;
+  final _ = await PhotonApiService().register(server);
+
+  return true;
 });

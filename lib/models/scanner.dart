@@ -9,7 +9,7 @@ class Scanner {
     return _instance!; 
   }
 
-  lock() => _locked = true;
-  unlock() => _locked = false;
-  locked() => _locked;
+  void lock() => _locked = true;
+  void unlock() => _locked = false;
+  bool locked() => _locked;
 }

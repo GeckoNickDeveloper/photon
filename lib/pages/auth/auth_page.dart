@@ -67,10 +67,15 @@ class AuthPage extends StatelessWidget {
               return ScannerScreen();
             }
       
-            return ref.watch(registerProvider).when(
+            // Try register
+            //final _ = ref.refresh(registerProvider);
+            //return ref.watch(registerProvider).when(
+            ref.invalidate(registerProvider);
+            return ref.read(registerProvider).when(
               data: (_) => const RegisteredScreen(),
               error: (error, stackTrace) => const ErrorScreen(),
-              loading: () => const LoadingScreen());
+              loading: () => const LoadingScreen()
+            );
           },
         ),
       ),
