@@ -67,8 +67,7 @@ class HistoryPage extends StatelessWidget {
             }
 
             final listFiles = ref.watch(historyProvider);
-      
-            return listFiles.when<Widget>(
+            return listFiles.when(
               // Data screen
               data: (data) {
                 //ref.read(historyListProvider.notifier).state = [...data];

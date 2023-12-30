@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/models/scanner.dart';
 import 'package:photon/pages/auth/screen/error_screen.dart';
 import 'package:photon/pages/auth/screen/loading_screen.dart';
 import 'package:photon/pages/auth/screen/registered_screen.dart';
@@ -19,6 +20,7 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Scan QR'),
         actions: [
           Consumer(
@@ -65,13 +67,12 @@ class AuthPage extends StatelessWidget {
       
             if(isScanning) {
               return ScannerScreen();
+            } else {
+              Scanner().unlock();
             }
-      
-            // Try register
-            //final _ = ref.refresh(registerProvider);
-            //return ref.watch(registerProvider).when(
-            ref.invalidate(registerProvider);
-            return ref.read(registerProvider).when(
+    
+            final reg = ref.watch(registerProvider);
+            return reg.when(
               data: (_) => const RegisteredScreen(),
               error: (error, stackTrace) => const ErrorScreen(),
               loading: () => const LoadingScreen()
