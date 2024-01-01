@@ -1,4 +1,6 @@
-class PhotonConflictException implements Exception {
+import 'package:photon/exception/photon_base_exception.dart';
+
+class PhotonConflictException implements PhotonBaseException {
   String? msg;
   
   PhotonConflictException({this.msg});

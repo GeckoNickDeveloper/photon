@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/lib.dart';
 import 'package:photon/pages/history/screen/error_screen.dart';
 import 'package:photon/pages/history/screen/history_screen.dart';
 import 'package:photon/pages/history/screen/loading_screen.dart';
-import 'package:photon/pages/settings/settings_page.dart';
 
 // Providers
 import 'package:photon/providers/global/providers.dart';
@@ -19,49 +19,29 @@ class HistoryPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('History'),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsPage(),
-                  ),
-                );
-            },
-            icon: const Icon(Icons.settings)
-          )
+          buildActions(context)
         ]
       ),
       body: Center(
         child: Consumer(
-          builder:(context, ref, child) {
+          builder: (context, ref, child) {
+            final logged = ref.watch(isLoggedProvider);
+
+            if(!logged) {
+              Navigator.pop(context);
+            }
+
             final listFiles = ref.watch(historyProvider);
-      
-            return listFiles.when<Widget>(
+            return listFiles.when(
               // Data screen
-              data: (data) {
-                //ref.read(historyListProvider.notifier).state = [...data];
-                return const HistoryScreen();
-              },
+              data: (data) => const HistoryScreen(),
               // Error screen
-              error: (error, stackTrace) {
-                return const ErrorScreen();
-              },
+              error: (error, stackTrace) => ErrorScreen(error: error,),
               // Loading screen
-              loading: () {
-                return const LoadingScreen();
-              },
+              loading: () => const LoadingScreen(),
             );
           },
         ),
-      ),
-      // Remove auth
-      floatingActionButton: Consumer(
-        builder: (context, ref, _) {
-          return FloatingActionButton(
-            onPressed: () { ref.read(serverInformationsProvider.notifier).state = null; },
-            child: const Icon(Icons.token_outlined),
-          );
-        },
       ),
     );
   }

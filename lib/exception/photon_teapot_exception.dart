@@ -1,4 +1,6 @@
-class PhotonTeapotException implements Exception {
+import 'package:photon/exception/photon_base_exception.dart';
+
+class PhotonTeapotException implements PhotonBaseException {
   String? msg;
   
   PhotonTeapotException({this.msg});

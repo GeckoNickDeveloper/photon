@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:photon/models/photon_image.dart';
-import 'package:photon/models/upload_status.dart';
+import 'package:photon/models/data/photon_image.dart';
+import 'package:photon/models/data/upload_status.dart';
 
 class ImageListerService {
   static const String root = '/storage/emulated/0';

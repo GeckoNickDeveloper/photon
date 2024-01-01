@@ -1,17 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
-//import 'package:dio/dio.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:photon/exception/photon_bad_request_exception.dart';
 import 'package:photon/exception/photon_conflict_exception.dart';
 import 'package:photon/exception/photon_forbidden_exception.dart';
 import 'package:photon/exception/photon_not_implemented_exception.dart';
 import 'package:photon/exception/photon_teapot_exception.dart';
 import 'package:photon/exception/photon_unknown_status_exception.dart';
-import 'package:photon/models/device_infos.dart';
-import 'package:photon/models/photon_history_record.dart';
-import 'package:photon/models/photon_image.dart';
-import 'package:photon/models/photon_server_model.dart';
+import 'package:photon/models/data/device_infos.dart';
+import 'package:photon/models/data/photon_history_record.dart';
+import 'package:photon/models/data/photon_image.dart';
+import 'package:photon/models/data/photon_server_model.dart';
 import 'package:photon/models/settings.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,66 +28,6 @@ class PhotonApiService {
   /// Requires authentication
   /// 
   /// Upload an image to the specified photon server
-  /*Future<void> uploadImage(PhotonServerModel server, PhotonImage img) async {
-    final device = DeviceInfos();
-    final settings = Settings();
-    
-
-
-    // Build uri
-    final uri = Uri.http(
-      server.uri.authority,
-      'upload',
-    );
-
-    // Build client
-    final dio = Dio(
-      BaseOptions(
-        connectTimeout: const Duration(milliseconds: 500),
-        receiveTimeout: const Duration(milliseconds: 2500),
-        followRedirects: false,
-        headers: {
-          'uuid': device.uuid!,
-          'token': server.token
-        },
-      )
-    );
-
-    // Build request
-    final data = {
-      'path': img.path,
-      'file': MultipartFile.fromFileSync(
-        img.path,
-        filename: img.name,
-      )
-    };
-
-    try {
-      // send data
-      final res = await dio.post(uri.toString(), data: data);
-
-      if (res.statusCode != null) {
-        _checkError(res.statusCode!);
-      }
-
-      if(settings.deleteOnUpload) {
-        // TODO implement element delete
-      }
-
-    } on DioException catch(e) {
-      if (e.response != null) {
-        if (e.response!.statusCode != null) {
-          _checkError(e.response!.statusCode!);
-        } else {
-          throw Exception('Big Error');
-        }
-      } else {
-        print(e.toString());
-        throw Exception('Error In request sending');
-      }
-    }
-  }*/
-
   Future<void> upload(PhotonServerModel server, PhotonImage img) async {
     final device = DeviceInfos();
     final settings = Settings();
@@ -125,20 +62,7 @@ class PhotonApiService {
     });
 
     // Send request
-    final response = await request.send();/*await http.post(
-      Uri.http(
-        server.uri.authority,
-        'upload',
-      ),
-      headers: {
-        'uuid': device.uuid!,
-        'token': server.token
-      },
-      body: {
-        'path': img.path,
-        'file': base64Encode((img.file as File).readAsBytesSync())
-      },
-    );*/
+    final response = await request.send();
 
     _checkError(response.statusCode);
 
@@ -164,6 +88,7 @@ class PhotonApiService {
       Uri.http(
         server.uri.authority,
         'history/${device.uuid!}',
+        //'kjbeckjwbekjbevwjvb/${device.uuid!}',
       ),
       headers: {
         'uuid': device.uuid!,

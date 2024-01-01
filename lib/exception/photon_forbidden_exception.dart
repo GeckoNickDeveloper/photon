@@ -1,4 +1,6 @@
-class PhotonForbiddenException implements Exception {
+import 'package:photon/exception/photon_base_exception.dart';
+
+class PhotonForbiddenException implements PhotonBaseException {
   String? msg;
   
   PhotonForbiddenException({this.msg});

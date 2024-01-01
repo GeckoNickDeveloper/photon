@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:photon/models/upload_status.dart';
+import 'package:photon/models/data/upload_status.dart';
 
 class PhotonImage {
   String name;

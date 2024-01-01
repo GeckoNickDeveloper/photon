@@ -5,7 +5,6 @@ import 'package:photon/pages/history/history_page.dart';
 import 'package:photon/pages/upload/upload_page.dart';
 
 // Providers
-import 'package:photon/providers/global/providers.dart';
 import 'package:photon/providers/upload/providers.dart';
 import 'package:photon/providers/history/providers.dart';
 

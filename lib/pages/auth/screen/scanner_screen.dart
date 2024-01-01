@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/models/photon_server_model.dart';
+import 'package:photon/models/data/photon_server_model.dart';
 import 'package:photon/models/scanner.dart';
+import 'package:photon/models/server.dart';
 
 // Providers
-import 'package:photon/providers/global/providers.dart';
 import 'package:photon/providers/auth/providers.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -33,18 +33,21 @@ class ScannerScreen extends StatelessWidget {
   }
 
   void onQRViewCreated(QRViewController controller, WidgetRef ref) {
-    controller.scannedDataStream.listen((scanData) {
-      if(Scanner().locked()) return;
-      Scanner().lock();
-      
-      PhotonServerModel? psm;
-      try {
-        psm = PhotonServerModel.fromJson(jsonString: scanData.code!);
-      } on Exception { }
+    controller
+      .scannedDataStream
+      .listen(
+        (scanData) {
+          if(Scanner().locked()) return;
+          Scanner().lock();
 
-      ref.read(serverInformationsProvider.notifier).state = psm;
-      ref.read(isScanningProvider.notifier).state = false;
-      final _ = ref.refresh(registerProvider);
-    });
+          PhotonServerModel? psm;
+          try {
+            psm = PhotonServerModel.fromJson(jsonString: scanData.code!);
+          } on Exception { }
+
+          Server().setPending(psm);
+          ref.read(isScanningProvider.notifier).state = false;
+        }
+      );
   }
 }
