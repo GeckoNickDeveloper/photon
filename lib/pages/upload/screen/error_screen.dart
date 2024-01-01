@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photon/widgets/back_home_elevated_button.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});
@@ -6,7 +7,12 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('error')
+      child: Column(
+        children: [
+          Text('error'),
+          BackHomeElevatedButton()
+        ],
+      )
     );
   }
 }

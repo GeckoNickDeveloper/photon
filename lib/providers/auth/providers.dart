@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/lib.dart';
 import 'package:photon/models/server.dart';
 import 'package:photon/services/photon_api_service.dart';
 
@@ -14,6 +15,7 @@ final registerProvider = FutureProvider((ref) async {
   }
   
   final _ = await PhotonApiService().register(server.getPending()!);
+  login(ref);
 
   return true;
 });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/widgets/back_home_elevated_button.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});
@@ -8,13 +9,10 @@ class ErrorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        return Column(
+        return const Column(
           children: [
-            const Text('An error occured'),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Return to Home')
-            )
+            Text('An error occured'),
+            BackHomeElevatedButton()
           ],
         );
       },

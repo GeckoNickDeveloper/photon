@@ -8,7 +8,7 @@ import 'package:photon/providers/global/providers.dart';
 Widget buildActions(BuildContext ctx, {bool toSettings = true}) {
   return Consumer(
     builder:(context, ref, _) {
-      final logged = ref.read(isLoggedProvider);
+      final logged = ref.watch(isLoggedProvider);
       
       final List<Widget> buttons = [];
 
@@ -46,7 +46,7 @@ Widget buildActions(BuildContext ctx, {bool toSettings = true}) {
   );
 }
 
-bool login(WidgetRef ref) {
+bool login(Ref ref) {
   bool result = Server().commit();
   ref.read(isLoggedProvider.notifier).state = result;
   return result;
