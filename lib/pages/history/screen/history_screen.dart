@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/data/photon_history_record.dart';
 
 // Providers
-import 'package:photon/providers/global/providers.dart';
 import 'package:photon/providers/history/providers.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -13,12 +12,7 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final server = ref.watch(serverInformationsProvider);
         final list = ref.watch(historyListProvider);
-
-        if(server == null) {
-          Navigator.pop(context);
-        }
 
         return (list.isEmpty) ? emptyListBuilder() : listBuilder(list);
       },

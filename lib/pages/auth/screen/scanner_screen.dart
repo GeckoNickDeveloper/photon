@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/data/photon_server_model.dart';
 import 'package:photon/models/scanner.dart';
+import 'package:photon/models/server.dart';
 
 // Providers
-import 'package:photon/providers/global/providers.dart';
 import 'package:photon/providers/auth/providers.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -45,9 +45,8 @@ class ScannerScreen extends StatelessWidget {
             psm = PhotonServerModel.fromJson(jsonString: scanData.code!);
           } on Exception { }
 
-          ref.read(serverInformationsProvider.notifier).state = psm;
+          Server().infos = psm;
           ref.read(isScanningProvider.notifier).state = false;
-            //final _ = ref.refresh(registerProvider);
         }
       );
   }

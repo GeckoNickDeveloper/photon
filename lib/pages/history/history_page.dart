@@ -28,7 +28,6 @@ class HistoryPage extends StatelessWidget {
             final logged = ref.watch(isLoggedProvider);
 
             if(!logged) {
-              ref.read(serverInformationsProvider.notifier).state = null;
               Navigator.pop(context);
             }
 
