@@ -88,6 +88,7 @@ class PhotonApiService {
       Uri.http(
         server.uri.authority,
         'history/${device.uuid!}',
+        //'kjbeckjwbekjbevwjvb/${device.uuid!}',
       ),
       headers: {
         'uuid': device.uuid!,

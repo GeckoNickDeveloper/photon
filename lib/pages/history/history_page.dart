@@ -36,7 +36,7 @@ class HistoryPage extends StatelessWidget {
               // Data screen
               data: (data) => const HistoryScreen(),
               // Error screen
-              error: (error, stackTrace) => const ErrorScreen(),
+              error: (error, stackTrace) => ErrorScreen(error: error,),
               // Loading screen
               loading: () => const LoadingScreen(),
             );

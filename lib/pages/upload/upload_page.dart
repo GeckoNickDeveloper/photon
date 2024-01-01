@@ -42,7 +42,7 @@ class UploadPage extends StatelessWidget {
             },
             // Error screen
             error: (error, stackTrace) {
-              return const ErrorScreen();
+              return ErrorScreen(error: error,);
             },
             // Loading screen
             loading: () {
