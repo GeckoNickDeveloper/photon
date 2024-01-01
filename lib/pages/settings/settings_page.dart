@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/lib.dart';
 import 'package:photon/models/device_infos.dart';
 import 'package:photon/models/settings.dart';
-import 'package:photon/providers/global/providers.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

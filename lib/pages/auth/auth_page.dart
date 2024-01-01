@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/lib.dart';
-import 'package:photon/models/scanner.dart';
 import 'package:photon/pages/auth/screen/error_screen.dart';
 import 'package:photon/pages/auth/screen/loading_screen.dart';
 import 'package:photon/pages/auth/screen/registered_screen.dart';
 import 'package:photon/pages/auth/screen/scanner_screen.dart';
-import 'package:photon/pages/settings/settings_page.dart';
 import 'package:photon/providers/auth/providers.dart';
-import 'package:photon/providers/global/providers.dart';
 
 
 

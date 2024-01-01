@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/lib.dart';
-import 'package:photon/models/photon_server_model.dart';
 import 'package:photon/pages/history/screen/error_screen.dart';
 import 'package:photon/pages/history/screen/history_screen.dart';
 import 'package:photon/pages/history/screen/loading_screen.dart';
-import 'package:photon/pages/settings/settings_page.dart';
 
 // Providers
 import 'package:photon/providers/global/providers.dart';
