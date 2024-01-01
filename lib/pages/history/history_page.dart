@@ -34,18 +34,11 @@ class HistoryPage extends StatelessWidget {
             final listFiles = ref.watch(historyProvider);
             return listFiles.when(
               // Data screen
-              data: (data) {
-                //ref.read(historyListProvider.notifier).state = [...data];
-                return const HistoryScreen();
-              },
+              data: (data) => const HistoryScreen(),
               // Error screen
-              error: (error, stackTrace) {
-                return const ErrorScreen();
-              },
+              error: (error, stackTrace) => const ErrorScreen(),
               // Loading screen
-              loading: () {
-                return const LoadingScreen();
-              },
+              loading: () => const LoadingScreen(),
             );
           },
         ),
