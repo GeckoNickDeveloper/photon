@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/lib.dart';
 import 'package:photon/models/device_infos.dart';
 import 'package:photon/models/settings.dart';
 import 'package:photon/providers/global/providers.dart';
@@ -21,27 +22,7 @@ class _SettingsPageState extends State<SettingsPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Settings'),
         actions: [
-          Consumer(
-            builder:(context, ref, child) {
-              final svr = ref.watch(serverInformationsProvider);
-              final List<Widget> buttons = [];
-
-              if (svr != null) {
-                buttons.add(
-                  IconButton(
-                    onPressed: () {
-                      ref.read(serverInformationsProvider.notifier).state = null;
-                    },
-                    icon: const Icon(Icons.token_outlined)
-                  )
-                );
-              }
-
-              return Row(
-                children: buttons,
-              );
-            },
-          ),
+          buildActions(context, toSettings: false)
         ]
       ),
       body: Center(

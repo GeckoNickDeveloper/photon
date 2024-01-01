@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/lib.dart';
 import 'package:photon/models/scanner.dart';
 import 'package:photon/pages/auth/screen/error_screen.dart';
 import 'package:photon/pages/auth/screen/loading_screen.dart';
@@ -23,41 +24,7 @@ class AuthPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Scan QR'),
         actions: [
-          Consumer(
-            builder:(context, ref, child) {
-              final svr = ref.watch(serverInformationsProvider);
-              final List<Widget> buttons = [];
-
-              if (svr != null) {
-                buttons.add(
-                  IconButton(
-                    onPressed: () {
-                      ref.read(serverInformationsProvider.notifier).state = null;
-                    },
-                    icon: const Icon(Icons.token_outlined)
-                  )
-                );
-              }
-
-              buttons.add(
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const SettingsPage(),
-                        ),
-                      );
-                  },
-                  icon: const Icon(Icons.settings),
-                  tooltip: 'Settings',
-                )
-              );
-
-              return Row(
-                children: buttons,
-              );
-            },
-          ),
+          buildActions(context)
         ]
       ),
       body: Center(
@@ -67,8 +34,6 @@ class AuthPage extends StatelessWidget {
       
             if(isScanning) {
               return ScannerScreen();
-            } else {
-              Scanner().unlock();
             }
     
             final reg = ref.watch(registerProvider);

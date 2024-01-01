@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/lib.dart';
 import 'package:photon/models/photon_server_model.dart';
 import 'package:photon/pages/settings/settings_page.dart';
 import 'package:photon/providers/global/providers.dart';
@@ -17,48 +18,14 @@ class HomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Photon'),
         actions: [
-          Consumer(
-            builder:(context, ref, child) {
-              final svr = ref.watch(serverInformationsProvider);
-              final List<Widget> buttons = [];
-
-              if (svr != null) {
-                buttons.add(
-                  IconButton(
-                    onPressed: () {
-                      ref.read(serverInformationsProvider.notifier).state = null;
-                    },
-                    icon: const Icon(Icons.token_outlined)
-                  )
-                );
-              }
-
-              buttons.add(
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const SettingsPage(),
-                        ),
-                      );
-                  },
-                  icon: const Icon(Icons.settings),
-                  tooltip: 'Settings',
-                )
-              );
-
-              return Row(
-                children: buttons,
-              );
-            },
-          ),
+          buildActions(context)
         ]
       ),
       body: Consumer(
         builder: (context, ref, _) {
-          final PhotonServerModel? auth = ref.watch(serverInformationsProvider);
+          final logged = ref.watch(isLoggedProvider);
 
-          if (auth == null) {
+          if (!logged) {
             return const UnauthorizedScreen();
           } else {
             return const AuthorizedScreen();

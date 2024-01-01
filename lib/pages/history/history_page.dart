@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:photon/lib.dart';
 import 'package:photon/models/photon_server_model.dart';
 import 'package:photon/pages/history/screen/error_screen.dart';
 import 'package:photon/pages/history/screen/history_screen.dart';
@@ -20,49 +21,16 @@ class HistoryPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('History'),
         actions: [
-          Consumer(
-            builder:(context, ref, child) {
-              final svr = ref.watch(serverInformationsProvider);
-              final List<Widget> buttons = [];
-
-              if (svr != null) {
-                buttons.add(
-                  IconButton(
-                    onPressed: () {
-                      ref.read(serverInformationsProvider.notifier).state = null;
-                    },
-                    icon: const Icon(Icons.token_outlined)
-                  )
-                );
-              }
-
-              buttons.add(
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const SettingsPage(),
-                        ),
-                      );
-                  },
-                  icon: const Icon(Icons.settings),
-                  tooltip: 'Settings',
-                )
-              );
-
-              return Row(
-                children: buttons,
-              );
-            },
-          ),
+          buildActions(context)
         ]
       ),
       body: Center(
         child: Consumer(
           builder: (context, ref, child) {
-            final PhotonServerModel? auth = ref.watch(serverInformationsProvider);
+            final logged = ref.watch(isLoggedProvider);
 
-            if (auth == null) {
+            if(!logged) {
+              ref.read(serverInformationsProvider.notifier).state = null;
               Navigator.pop(context);
             }
 

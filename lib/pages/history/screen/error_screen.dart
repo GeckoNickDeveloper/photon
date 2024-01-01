@@ -10,13 +10,22 @@ class ErrorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        final server = ref.watch(serverInformationsProvider);
+        final logged = ref.watch(isLoggedProvider);
 
-        if(server == null) {
+        if(!logged) {
+          ref.read(serverInformationsProvider.notifier).state = null;
           Navigator.pop(context);
         }
 
-        return const Text('Error');
+        return Column(
+          children: [
+            const Text('An error occured'),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Return to Home')
+            )
+          ],
+        );
       },
     );
   }
