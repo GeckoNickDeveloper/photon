@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/models/upload_status.dart';
+import 'package:photon/models/data/upload_status.dart';
 
 // Providers
 import 'package:photon/providers/upload/providers.dart';

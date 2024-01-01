@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/providers/global/providers.dart';  // Globals providers
 
-import 'package:photon/models/photon_history_record.dart';
+import 'package:photon/models/data/photon_history_record.dart';
 import 'package:photon/services/photon_api_service.dart';
 
 // Request history to the server

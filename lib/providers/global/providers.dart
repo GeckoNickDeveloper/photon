@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/models/photon_server_model.dart';
+import 'package:photon/models/data/photon_server_model.dart';
 
 
 //=============================================== Globals Providers

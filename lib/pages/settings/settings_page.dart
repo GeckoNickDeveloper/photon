@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photon/lib.dart';
-import 'package:photon/models/device_infos.dart';
+import 'package:photon/models/data/device_infos.dart';
 import 'package:photon/models/settings.dart';
 
 class SettingsPage extends StatefulWidget {

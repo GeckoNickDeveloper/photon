@@ -5,10 +5,10 @@ import 'package:photon/exception/photon_forbidden_exception.dart';
 import 'package:photon/exception/photon_not_implemented_exception.dart';
 import 'package:photon/exception/photon_teapot_exception.dart';
 import 'package:photon/exception/photon_unknown_status_exception.dart';
-import 'package:photon/models/device_infos.dart';
-import 'package:photon/models/photon_history_record.dart';
-import 'package:photon/models/photon_image.dart';
-import 'package:photon/models/photon_server_model.dart';
+import 'package:photon/models/data/device_infos.dart';
+import 'package:photon/models/data/photon_history_record.dart';
+import 'package:photon/models/data/photon_image.dart';
+import 'package:photon/models/data/photon_server_model.dart';
 import 'package:photon/models/settings.dart';
 import 'package:http/http.dart' as http;
 

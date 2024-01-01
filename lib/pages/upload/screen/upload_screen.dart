@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/models/photon_image.dart';
-import 'package:photon/models/photon_server_model.dart';
-import 'package:photon/models/upload_status.dart';
+import 'package:photon/models/data/photon_image.dart';
+import 'package:photon/models/data/photon_server_model.dart';
+import 'package:photon/models/data/upload_status.dart';
 import 'package:photon/pages/upload/widget/upload_tile.dart';
 
 // Providers
