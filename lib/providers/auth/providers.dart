@@ -9,11 +9,11 @@ final isScanningProvider = StateProvider((ref) => true);
 final registerProvider = FutureProvider((ref) async {
   final server = Server();
 
-  if(server.infos == null) {
-    throw Exception('NO SERVER');
+  if(server.getPending() == null) {
+    throw Exception('NO PENDING SERVER');
   }
   
-  final _ = await PhotonApiService().register(server.infos!);
+  final _ = await PhotonApiService().register(server.getPending()!);
 
   return true;
 });

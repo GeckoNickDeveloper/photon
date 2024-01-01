@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:photon/models/data/photon_server_model.dart';
 import 'package:photon/models/server.dart';
 import 'package:photon/pages/settings/settings_page.dart';
 import 'package:photon/providers/global/providers.dart';
@@ -47,12 +46,13 @@ Widget buildActions(BuildContext ctx, {bool toSettings = true}) {
   );
 }
 
-void login(WidgetRef ref, PhotonServerModel infos) {
-  ref.read(isLoggedProvider.notifier).state = true;
-  Server().infos = infos;
+bool login(WidgetRef ref) {
+  bool result = Server().commit();
+  ref.read(isLoggedProvider.notifier).state = result;
+  return result;
 }
 
 void logout(WidgetRef ref) {
-  ref.read(isLoggedProvider.notifier).state = false;
   Server().clear();
+  ref.read(isLoggedProvider.notifier).state = false;
 }
