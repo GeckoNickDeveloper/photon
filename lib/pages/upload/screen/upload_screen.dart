@@ -32,7 +32,10 @@ class UploadScreen extends StatelessWidget {
                   },
                 ),
               ),
-              elevatedButton(context, ref, Server().getInfos()!, list, uploading),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: elevatedButton(context, ref, Server().getInfos()!, list, uploading),
+              ),
             ],
           ),
         );

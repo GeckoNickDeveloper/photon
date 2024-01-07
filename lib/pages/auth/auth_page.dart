@@ -36,7 +36,7 @@ class AuthPage extends StatelessWidget {
             final reg = ref.watch(registerProvider);
             return reg.when(
               data: (_) => const RegisteredScreen(),
-              error: (error, stackTrace) => const ErrorScreen(),
+              error: (error, stackTrace) => ErrorScreen(error: error),
               loading: () => const LoadingScreen()
             );
           },

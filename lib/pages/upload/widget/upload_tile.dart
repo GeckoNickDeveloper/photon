@@ -19,16 +19,28 @@ class UploadTile extends StatelessWidget {
         var icon = const Icon(Icons.pending);
         switch (item.status) {
           case UploadStatus.canceled:
-            icon = const Icon(Icons.cancel);
+            icon = const Icon(
+              Icons.cancel,
+              color: Colors.amber,
+            );
             break;
           case UploadStatus.success:
-            icon = const Icon(Icons.check);
+            icon = const Icon(
+              Icons.check,
+              color: Colors.green,
+            );
             break;
           case UploadStatus.pending:
-            icon = const Icon(Icons.autorenew);
+            icon = const Icon(
+              Icons.autorenew,
+              color: Colors.blueGrey,
+            );
             break;
           case UploadStatus.failed:
-            icon = const Icon(Icons.warning);
+            icon = const Icon(
+              Icons.warning,
+              color: Colors.red,
+            );
             break;
         }
 
