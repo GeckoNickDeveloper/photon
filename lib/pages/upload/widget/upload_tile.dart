@@ -21,7 +21,7 @@ class UploadTile extends StatelessWidget {
           case UploadStatus.canceled:
             icon = const Icon(
               Icons.cancel,
-              color: Colors.yellow,
+              color: Colors.amber,
             );
             break;
           case UploadStatus.success:
