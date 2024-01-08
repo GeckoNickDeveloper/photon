@@ -5,7 +5,7 @@ class Settings {
   bool deleteOnUpload;
   bool specifyPath;
 
-  Settings._() : deleteOnUpload = false, specifyPath = false;
+  Settings._() : deleteOnUpload = false, specifyPath = true;
 
   factory Settings() {
     _instance ??= Settings._();

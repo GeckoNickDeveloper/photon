@@ -55,13 +55,21 @@ class UploadScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          child: ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              //return UploadTile(id: list[index].file.path);
-              //return UploadTile(id: list[index].path);
-              return UploadTile(id: '${list[index].path}/${list[index].name}');
-            },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.separated(
+              itemCount: list.length,
+              itemBuilder: (context, index) => 
+                UploadTile(id: '${list[index].path}/${list[index].name}'),
+              separatorBuilder: (context, index) =>
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 16.0,
+                    right: 16.0
+                  ),
+                  child: Divider(),
+              ),
+            ),
           ),
         ),
         Padding(

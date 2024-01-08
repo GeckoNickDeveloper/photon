@@ -29,14 +29,21 @@ class HistoryScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          child: ListView.builder(
+          child: ListView.separated(
             itemCount: list.length,
-            itemBuilder:(context, index) {
-              return ListTile(
+            itemBuilder:(context, index) =>
+              ListTile(
                 title: Text(list[index].filename),
                 subtitle: Text(list[index].date),
-              );
-            },
+              ),
+            separatorBuilder: (context, index) =>
+              const Padding(
+                padding: EdgeInsets.only(
+                  left: 16.0,
+                  right: 16.0
+                ),
+                child: Divider(),
+              ),
           ),
         ),
       ],
