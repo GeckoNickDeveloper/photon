@@ -52,4 +52,23 @@ class LocalStorageService {
     bool value = await sp.remove('settings-deleteOnUpdate');
     return value;
   }
+
+  /// Settings - Specify Path
+  Future<bool?> readSpecifyPath() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    bool? value = sp.getBool('settings-specifyPath');
+    return value;
+  }
+
+  Future<bool> writeSpecifyPath(bool specifyPath) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    bool value = await sp.setBool('settings-specifyPath', specifyPath);
+    return value;
+  }
+
+  Future<bool> removeSpecifyPath() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    bool value = await sp.remove('settings-specifyPath');
+    return value;
+  }
 }

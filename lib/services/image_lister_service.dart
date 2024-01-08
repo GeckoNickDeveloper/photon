@@ -5,7 +5,6 @@ import 'package:photon/models/data/upload_status.dart';
 
 class ImageListerService {
   static const String root = '/storage/emulated/0';
-  static const List<String> blacklist = ['Android'];
   static const List<String> whitelist = ['DCIM'];
 
   static Future<List<PhotonImage>> listAllImages() async {
@@ -14,14 +13,6 @@ class ImageListerService {
 
     // Filter only allowed paths
     final List<FileSystemEntity> rawList = await Directory('/storage/emulated/0').list().toList();
-
-    /*for(var i in rawList) {
-      for(var j in blacklist) {
-        if (!i.path.contains(j)) {
-          allowed.add(i);
-        }
-      }
-    }*/
     
     for(var i in rawList) {
       for(var j in whitelist) {
@@ -47,8 +38,11 @@ class ImageListerService {
       for(var item in subList) {
         if (item is File) {
           final filename = item.path.split('/').last;
+          final pathList = item.path.replaceAll(root, '').trim().split('/');
+          final _ = pathList.removeLast();
+          final path = pathList.join('/');
 
-          list.add(PhotonImage(name: filename, path: item.path, file: item, status: UploadStatus.pending));
+          list.add(PhotonImage(name: filename, path: path, file: item, status: UploadStatus.pending));
         }
       }
     }

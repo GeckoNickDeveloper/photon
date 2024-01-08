@@ -12,6 +12,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool deleteOnUpload = Settings().deleteOnUpload;
+  bool specifyPath = Settings().specifyPath;
   
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,16 @@ class _SettingsPageState extends State<SettingsPage> {
                 setState(() {
                   Settings().updateDeleteOnUpload(value);
                   deleteOnUpload = value;
+                });
+              }
+            ),
+            const Text('Specify path:'),
+            Switch(
+              value: specifyPath,
+              onChanged: (value) {
+                setState(() {
+                  Settings().updateSpecifyPath(value);
+                  specifyPath = value;
                 });
               }
             ),
