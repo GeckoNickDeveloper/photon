@@ -25,12 +25,30 @@ class AuthorizedScreen extends StatelessWidget{
                   // Ask permission
                   var status = await Permission.manageExternalStorage.request();
                   print('Storage ${status.toString()}');
-                  if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) await openAppSettings();
+                  if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) {
+                    await openAppSettings();
+                  }
+                  status = await Permission.manageExternalStorage.request();
                   //status = await Permission.accessMediaLocation.request();
                   //print('media ${status.toString()}');
                   //if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) await openAppSettings();
                   
                   // List all files
+                  if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) {
+                    if (!context.mounted) {
+                      return;
+                    }
+                    
+                    ScaffoldMessenger
+                      .of(context)
+                      .showSnackBar(
+                        const SnackBar(
+                          content: Text('The application needs to access all the file system.')
+                        )
+                    );
+                    return;
+                  }
+
                   final _ = ref.refresh(imageListerProvider);
         
                   if (!context.mounted) return;
