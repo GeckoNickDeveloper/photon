@@ -18,7 +18,8 @@ Widget buildActions(BuildContext ctx, {bool toSettings = true}) {
             onPressed: () {
               logout(ref);
             },
-            icon: const Icon(Icons.token_outlined)
+            icon: const Icon(Icons.token_outlined),
+            tooltip: 'Logout',
           )
         );
       }

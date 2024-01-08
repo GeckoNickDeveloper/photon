@@ -36,9 +36,6 @@ class PhotonApiService {
       return;
     }
 
-    final path = img.path.split('/');
-    final realPath = path.sublist(4, path.length - 1).join('/');
-
     // Build uri
     final uri = Uri.http(
       server.uri.authority,
@@ -50,15 +47,13 @@ class PhotonApiService {
     request.files.add(
       await http.MultipartFile.fromPath(
         'file',
-        img.path,
+        img.file.path,
       )
     );
     request.headers.addAll({
       'uuid': device.uuid!,
       'token': server.token,
-    });
-    request.fields.addAll({
-      'path': realPath
+      'path': (settings.specifyPath) ? img.path : '/'
     });
 
     // Send request

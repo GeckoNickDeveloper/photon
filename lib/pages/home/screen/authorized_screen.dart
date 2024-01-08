@@ -15,60 +15,63 @@ class AuthorizedScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) {
-        return Column(
-          children: [
-            /// UPLOAD PAGE
-            ElevatedButton(
-              onPressed: () async {
-                // Ask permission
-                var status = await Permission.manageExternalStorage.request();
-                print('storage ${status.toString()}');
-                if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) await openAppSettings();
-                //status = await Permission.accessMediaLocation.request();
-                //print('media ${status.toString()}');
-                //if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) await openAppSettings();
-                
-                // List all files
-                final _ = ref.refresh(imageListerProvider);
-
-                if (!context.mounted) return;
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const UploadPage(),
-                  ),
-                );
-              },
-              child: const Row(
-                children: [
-                  Text('Upload'),
-                  Spacer(),
-                  Icon(Icons.upload),
-                ]
-              )
-            ),
-            
-            /// HISTORY PAGE
-            ElevatedButton(
-              onPressed: () async {
-                // Request history
-                final _ = ref.refresh(historyProvider);
-
-                if (!context.mounted) return;
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const HistoryPage(),
-                  ),
-                );
-              },
-              child: const Row(
-                children: [
-                  Text('History'),
-                  Spacer(),
-                  Icon(Icons.history),
-                ]
-              )
-            ),
-          ]
+        return Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
+          child: Column(
+            children: [
+              /// UPLOAD PAGE
+              ElevatedButton(
+                onPressed: () async {
+                  // Ask permission
+                  var status = await Permission.manageExternalStorage.request();
+                  print('Storage ${status.toString()}');
+                  if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) await openAppSettings();
+                  //status = await Permission.accessMediaLocation.request();
+                  //print('media ${status.toString()}');
+                  //if (status == PermissionStatus.denied || status == PermissionStatus.permanentlyDenied) await openAppSettings();
+                  
+                  // List all files
+                  final _ = ref.refresh(imageListerProvider);
+        
+                  if (!context.mounted) return;
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const UploadPage(),
+                    ),
+                  );
+                },
+                child: const Row(
+                  children: [
+                    Text('Upload'),
+                    Spacer(),
+                    Icon(Icons.upload),
+                  ]
+                )
+              ),
+              
+              /// HISTORY PAGE
+              ElevatedButton(
+                onPressed: () async {
+                  // Request history
+                  final _ = ref.refresh(historyProvider);
+        
+                  if (!context.mounted) return;
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const HistoryPage(),
+                    ),
+                  );
+                },
+                child: const Row(
+                  children: [
+                    Text('History'),
+                    Spacer(),
+                    Icon(Icons.history),
+                  ]
+                )
+              ),
+            ]
+          ),
         );
       },
     );

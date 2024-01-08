@@ -16,28 +16,15 @@ class UploadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ref, child) {
+      builder: (context, ref, _) {
         final uploading = ref.watch(uploadImageListNotifier.notifier).uploading;
         final list = ref.watch(uploadImageListNotifier);
 
         return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder:(context, index) {
-                    return UploadTile(id: list[index].path);
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: elevatedButton(context, ref, Server().getInfos()!, list, uploading),
-              ),
-            ],
-          ),
+          child:
+            (list.isEmpty) ?
+            emptyListBuilder() :
+            listBuilder(context, ref, uploading, list)
         );
       },
     );
@@ -60,4 +47,26 @@ class UploadScreen extends StatelessWidget {
       child: text,
     );
   }
+
+  // List view
+  Widget emptyListBuilder() => const Text('Nothing to Upload');
+
+  Widget listBuilder(BuildContext ctx, WidgetRef ref, bool uploading, List<PhotonImage> list) =>
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: list.length,
+            itemBuilder:(context, index) {
+              return UploadTile(id: list[index].path);
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: elevatedButton(ctx, ref, Server().getInfos()!, list, uploading),
+        ),
+      ],
+    );
 }
