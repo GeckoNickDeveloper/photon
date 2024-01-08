@@ -24,8 +24,9 @@ final imageListerProvider = FutureProvider.autoDispose((ref) async {
 final uploadImageListNotifier = StateNotifierProvider<UploadImageListNotifier, List<PhotonImage>>((ref) => UploadImageListNotifier([]));
 
 // Family provider for single item
-final specificUploadImageProvider = Provider.family<PhotonImage, String>((ref, path) {
+final specificUploadImageProvider = Provider.family<PhotonImage, String>((ref, id) {
   final list = ref.watch(uploadImageListNotifier);
-
-  return list.firstWhere((element) => element.path == path);
+  print(id);
+  //return list.firstWhere((element) => element.path == id);
+  return list.firstWhere((element) => '${element.path}/${element.name}' == id);
 });

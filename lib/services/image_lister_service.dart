@@ -42,7 +42,14 @@ class ImageListerService {
           final _ = pathList.removeLast();
           final path = pathList.join('/');
 
-          list.add(PhotonImage(name: filename, path: path, file: item, status: UploadStatus.pending));
+          list.add(
+            PhotonImage(
+              name: filename,
+              path: path,
+              file: item,
+              status: UploadStatus.pending
+            )
+          );
         }
       }
     }
