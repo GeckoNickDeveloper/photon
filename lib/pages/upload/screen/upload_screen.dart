@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:photon/models/data/photon_image.dart';
 import 'package:photon/models/data/photon_server_model.dart';
-import 'package:photon/models/data/upload_status.dart';
 import 'package:photon/models/server.dart';
 import 'package:photon/pages/upload/widget/upload_tile.dart';
 
@@ -31,7 +30,7 @@ class UploadScreen extends StatelessWidget {
   }
 
   Widget elevatedButton(BuildContext ctx, WidgetRef ref, PhotonServerModel server, List<PhotonImage> list, bool uploading) {
-    final remaining = list.where((element) => element.status != UploadStatus.success).toList().length;
+    final remaining = ref.watch(uploadImageListNotifier.notifier).remaining;
     final text = (uploading) ? const Text('Cancel') : ((remaining != 0) ? const Text('Upload') : const Text('Back'));
 
     return ElevatedButton(
@@ -56,11 +55,21 @@ class UploadScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          child: ListView.builder(
-            itemCount: list.length,
-            itemBuilder:(context, index) {
-              return UploadTile(id: list[index].path);
-            },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.separated(
+              itemCount: list.length,
+              itemBuilder: (context, index) => 
+                UploadTile(id: '${list[index].path}/${list[index].name}'),
+              separatorBuilder: (context, index) =>
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 16.0,
+                    right: 16.0
+                  ),
+                  child: Divider(),
+              ),
+            ),
           ),
         ),
         Padding(

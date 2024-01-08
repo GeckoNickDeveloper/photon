@@ -30,7 +30,7 @@ class UploadPage extends StatelessWidget {
           final logged = ref.watch(isLoggedProvider);
 
           if (!logged) {
-            Navigator.pop(context);
+            Future.microtask(() => Navigator.pop(context));
           }
           
           final listFiles = ref.watch(imageListerProvider);

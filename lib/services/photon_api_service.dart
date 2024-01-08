@@ -57,7 +57,11 @@ class PhotonApiService {
     });
 
     // Send request
-    final response = await request.send();
+    final response = await request
+      .send()
+      .timeout(
+        const Duration(seconds: 5)
+      );
 
     _checkError(response.statusCode);
 
@@ -79,16 +83,19 @@ class PhotonApiService {
     final List<PhotonHistoryRecord> list = [];
 
     // Make request
-    final response = await http.get(
+    final response = await http
+    .get(
       Uri.http(
         server.uri.authority,
         'history/${device.uuid!}',
-        //'kjbeckjwbekjbevwjvb/${device.uuid!}',
       ),
       headers: {
         'uuid': device.uuid!,
         'token': server.token
       }
+    )
+    .timeout(
+      const Duration(seconds: 5)
     );
 
     /// Error Handling
@@ -116,7 +123,8 @@ class PhotonApiService {
     final device = DeviceInfos();
     
     // Make request
-    final response = await http.put(
+    final response = await http
+    .put(
       Uri.http(
         server.uri.authority,
         'register',
@@ -125,6 +133,9 @@ class PhotonApiService {
         'uuid': device.uuid!,
         'token': server.token
       }
+    )
+    .timeout(
+      const Duration(seconds: 5)
     );
 
     /// Error Handling
