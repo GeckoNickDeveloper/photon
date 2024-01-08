@@ -50,8 +50,9 @@ class ErrorScreen extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            const BackHomeElevatedButton(logoutOnPress: false,),
-            const BackHomeElevatedButton(logoutOnPress: true,)
+            (error is PhotonForbiddenException) ?
+              const BackHomeElevatedButton(logoutOnPress: false,) :
+              const BackHomeElevatedButton(logoutOnPress: true,)
           ],
         )
       ),
