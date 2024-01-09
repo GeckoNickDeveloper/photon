@@ -35,7 +35,38 @@ Una volta premuto il pulsante all'interno della Home, l'applicazione invierà un
 Questa pagina richiede semplicemente i dati dei caricamenti e li mostra a schermo. 
 
 ## UI
-Immagini UI
+### Home
+#### Non Autenticato
+![alt text](./img-relazione/Screenshot_2024-01-09-20-41-19-122_com.example.photon.jpg)
+
+#### Autenticato
+![alt text](./img-relazione/Screenshot_2024-01-09-20-15-19-807_com.example.photon.jpg)
+
+### Auth
+#### Scan Error
+![alt text](./img-relazione/Screenshot_2024-01-09-20-17-24-270_com.example.photon.jpg)
+
+### Upload
+#### Upload Finito
+![alt text](./img-relazione/Screenshot_2024-01-09-20-16-34-299_com.example.photon.jpg)
+#### Errore in upload
+![alt text](./img-relazione/Screenshot_2024-01-09-20-18-47-777_com.example.photon.jpg)
+#### Upload annullato
+![alt text](./img-relazione/Screenshot_2024-01-09-20-16-27-469_com.example.photon.jpg)
+#### Upload in corso
+![alt text](./img-relazione/Screenshot_2024-01-09-20-16-17-148_com.example.photon.jpg)
+#### Lista file
+![alt text](./img-relazione/Screenshot_2024-01-09-20-16-14-195_com.example.photon.jpg)
+
+## History
+#### Errore di comunicazione
+![alt text](./img-relazione/Screenshot_2024-01-09-20-18-26-514_com.example.photon.jpg)
+#### Lista
+![alt text](./img-relazione/Screenshot_2024-01-09-20-16-05-930_com.example.photon.jpg)
+
+## Settings
+![alt text](./img-relazione/Screenshot_2024-01-09-20-15-42-320_com.example.photon.jpg)
+
 
 ## Tecnologie Utilizzate
 Per la gestione dello stato, fulcro nevralgico di `flutter`, si è optato per l'utilizzo della libreria `flutter_riverpod`. Tramite essa è stato possibile gestire i cambiamenti dei dati durante l'interazione con l'applicazione.
