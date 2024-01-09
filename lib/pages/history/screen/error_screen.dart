@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:photon/exception/photon_forbidden_exception.dart';
 import 'package:photon/lib.dart';
 import 'package:photon/widgets/back_home_elevated_button.dart';
@@ -24,7 +25,7 @@ class ErrorScreen extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            (error is! PhotonForbiddenException) ?
+            ((error is! PhotonForbiddenException) && (error is! ClientException)) ?
               const BackHomeElevatedButton(logoutOnPress: false,) :
               const BackHomeElevatedButton(logoutOnPress: true,)
           ],

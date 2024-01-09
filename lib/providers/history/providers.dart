@@ -15,8 +15,8 @@ final historyProvider = FutureProvider.autoDispose((ref) async {
   
   final list = await PhotonApiService().history(Server().getInfos()!);
   ref.read(historyListProvider.notifier).state = list;
-
-  return list;
+  
+  return null;
 });
 
 // List to display
