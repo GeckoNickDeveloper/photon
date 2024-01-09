@@ -43,7 +43,8 @@ class AuthorizedScreen extends StatelessWidget{
                       .of(context)
                       .showSnackBar(
                         const SnackBar(
-                          content: Text('The application needs to access all the file system.')
+                          content: Text('The application needs to access all the file system.'),
+                          duration: Duration(seconds: 5),
                         )
                     );
                     return;
