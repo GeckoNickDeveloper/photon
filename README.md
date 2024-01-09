@@ -43,6 +43,8 @@ Questa pagina richiede semplicemente i dati dei caricamenti e li mostra a scherm
 ![alt text](./img-relazione/Screenshot_2024-01-09-20-15-19-807_com.example.photon.jpg)
 
 ### Auth
+#### Scan in corso
+![alt text](./img-relazione/Screenshot_2024-01-09-20-15-12-476_com.example.photon.jpg)
 #### Scan Error
 ![alt text](./img-relazione/Screenshot_2024-01-09-20-17-24-270_com.example.photon.jpg)
 
