@@ -50,7 +50,7 @@ Questa pagina richiede semplicemente i dati dei caricamenti e li mostra a scherm
 #### Upload Finito
 ![alt text](./img-relazione/Screenshot_2024-01-09-20-16-34-299_com.example.photon.jpg)
 #### Errore in upload
-![alt text](./img-relazione/Screenshot_2024-01-09-20-18-47-777_com.example.photon.jpg)
+![alt text](./img-relazione/Screenshot_2024-01-09-20-18-35-048_com.example.photon.jpg)
 #### Upload annullato
 ![alt text](./img-relazione/Screenshot_2024-01-09-20-16-27-469_com.example.photon.jpg)
 #### Upload in corso
