@@ -4,7 +4,7 @@ Nicholas Kania
 #326850
 
 ## Scopo dell'applicazione
-Lo scopo dell'applicazione consiste nel creare un applicativo software che permetta il backup su un server delle foto presenti all'interno del dispositivo.
+Lo scopo dell'applicazione consiste nel creare un applicativo software che permetta il backup su un server delle foto presenti all'interno del dispositivo. Solo Android.
 
 ## Casi d'Uso
 I casi d'uso per l'utilizzo dell'applicativo possono essere racchiusi in due categorie:
